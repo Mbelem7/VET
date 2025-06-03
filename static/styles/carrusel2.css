@@ -1,0 +1,27 @@
+.banner-carousel {
+  width: 500px; /* ancho del banner vertical */
+  height: 1000px; /* alto del banner vertical */
+  overflow: hidden;
+  position: relative;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.carousel-track {
+  display: flex;
+  animation: slideBanners 20s linear infinite;
+}
+
+.carousel-track img {
+  width: 500px;
+  height: 1000px;
+  object-fit: cover;
+}
+
+/* Animación para deslizar las imágenes horizontalmente */
+@keyframes slideBanners {
+  0%   { transform: translateX(0); }
+  33%  { transform: translateX(-500px); }
+  66%  { transform: translateX(-1000px); }
+  100% { transform: translateX(0); }
+}

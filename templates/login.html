@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>login</title>
+	<link rel="stylesheet" href="../static/styles/styleslogin.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="main">  	
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+			<div class="bienvenido">
+				<label for="chk" aria-hidden="true">Bienvenido</label>
+				{% if error %}
+					<label for="chk" aria-hidden="true"> {{ error }}</label>
+				{% endif %}
+			</div>
+
+			<div class="login">
+				<form action="/login" method="post">
+					<label for="chk" aria-hidden="true">Login</label>
+					<input type="text" name="user" placeholder="Usuario" required>
+					<input type="password" name="pswd" placeholder="Contraseña" required>
+					<button>Login</button>
+				</form>
+			</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Productos</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="../static/styles/stylesindex.css">
+{% endblock %}
+
+{% block body %}
+<div class="bodyproductos">
+
+  <h2 class="productos">Productos</h2>
+  
+  <div class="botonesproducto">
+    <a href="/compra"> <button class="btnproducto"> Crear Nuevo Producto</button></a>
+    <a href="/ventas"> <button class="btnproducto"> Nueva Venta</button></a>
+  
+  </div>
+
+  <br>
+  
+  <section class="menu-favoritos">
+  
+    <div class="contenedor-productos">
+      <!-- Fila 1 -->
+      <div class="producto">
+        <img src="../static/assets/img/whiskas.png" alt="Whiskas">
+        <h3>Whiskas</h3>
+        <p>Saco de 3KG de comida para gatos</p>
+      </div>
+      <div class="producto">
+        <img src="../static/assets/img/felix.png" alt="Felix">
+        <h3>Felix</h3>
+        <p>Saco de 4KG de comida para gatos</p>
+      </div>
+      <div class="producto">
+        <img src="../static/assets/img/pedigree.png" alt="Pedigree">
+        <h3>Pedigree</h3>
+        <p>Saco de 10.1KG de comida para perro</p>
+      </div>
+      <div class="producto">
+        <img src="../static/assets/img/dogchow.png" alt="Dog Chow">
+        <h3>Dog Chow</h3>
+        <p>Saco de 10.1KG de comida para perro</p>
+      </div>
+  
+      <!-- Fila 2 -->
+      <div class="producto">
+        <img src="../static/assets/img/cama.png" alt="Cama">
+        <h3>Cama</h3>
+        <p>Cama de perro de 50 x 50 mts</p>
+      </div>
+      <div class="producto">
+        <img src="../static/assets/img/correa.png" alt="Correa">
+        <h3>Correa</h3>
+        <p>Correa para gatos</p>
+      </div>
+      <div class="producto">
+        <img src="../static/assets/img/collarin.png" alt="Collar">
+        <h3>Collar</h3>
+        <p>Collar para perro</p>
+      </div>
+      <div class="producto">
+        <img src="../static/assets/img/pato.png" alt="Pato de peluche">
+        <h3>Pato de peluche</h3>
+        <p>Peluche de 20 x 20 cm</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
