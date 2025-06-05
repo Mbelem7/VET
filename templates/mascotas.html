@@ -16,6 +16,7 @@
   <div class="form-container">
     <div class="form-box">
       <a href="/agregarmascotas"> <button class="btnagregar">Agregar Mascota</button></a>
+      <a href="/agregarpropietario"> <button class="btnagregar">Agregar Propietario</button></a>
       <br>
       <!-- TABLA -->
       <div class="contenedor-tabla">
@@ -37,16 +38,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- {% for i in Mascot %}
-              <tr>
-                <td>{{ i[0] }}</td>
-                <td>{{ i[1] }}</td>
-                <td>{{ i[2] }}</td>
-                <td>{{ i[3] }}</td>
-                <td>{{ i[4] }}</td>
-                <td>{{ i[5] }}</td>
-              </tr> -->
-              {% endfor %}
+                  {% for i in Mascot %}
+                  <tr>
+                    <td>{{ i[0] }}</td>
+                    <td>{{ i[1] }}</td>
+                    <td>{{ i[2] }}</td>
+                    <td>{{ i[3] }}</td>
+                    <td>{{ i[4] }}</td>
+                    <td>{{ i[5] }}</td>
+                  </tr>
+                  {% endfor %}
                 </tbody>
               </table>
             </div>

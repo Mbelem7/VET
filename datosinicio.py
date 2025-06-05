@@ -24,7 +24,7 @@ def insertarCuenta():
         cursor = con.cursor()
         cursor.execute("""IF NOT EXISTS (SELECT 1 FROM USUARIOS WHERE USUARIO LIKE 'ADMIN')
                             BEGIN
-                                INSERT INTO USUARIOS (USUARIO,CONTRASEÑA,PERSONA_ID) 
+                                INSERT INTO USUARIOS (USUARIO,CONTRASEÑA,PERSONA_IDU) 
                                 VALUES (?, ?, ?)
                             END""", 'ADMIN', generate_password_hash('Belen123'), 1)
         con.commit()
@@ -44,21 +44,21 @@ def insertarRoles():
                             WHERE USUARIO like 'admin';
                             IF NOT EXISTS (SELECT 1 FROM ROLES WHERE ROLES = 'ADMIN')
                             BEGIN
-                                INSERT INTO ROLES (ROLES, USUARIOS_ID)
+                                INSERT INTO ROLES (ROLES, USUARIO_IDR)
                                 VALUES ('ADMIN', @nombreUsuario);  -- Ajusta el ID si necesitas asociarlo a un usuario específico
                             END
 
                             -- Insertar VETERINARIO si no existe
                             IF NOT EXISTS (SELECT 1 FROM ROLES WHERE ROLES = 'VETERINARIO')
                             BEGIN
-                                INSERT INTO ROLES (ROLES, USUARIOS_ID)
+                                INSERT INTO ROLES (ROLES, USUARIO_IDR)
                                 VALUES ('VETERINARIO', @nombreUsuario);
                             END
 
                             -- Insertar RECEPCIONISTA si no existe
                             IF NOT EXISTS (SELECT 1 FROM ROLES WHERE ROLES = 'RECEPCIONISTA')
                             BEGIN
-                                INSERT INTO ROLES (ROLES, USUARIOS_ID)
+                                INSERT INTO ROLES (ROLES, USUARIO_IDR)
                                 VALUES ('RECEPCIONISTA', @nombreUsuario);
                             END """)
         con.commit()

@@ -80,9 +80,8 @@ def agregarservicios():
 @app.route('/mascotas')
 @login_required
 def mascotas():
-   #  mascotas = mostrarmacota()  
-   #, Mascot=mascotas
-    return render_template('mascotas.html')
+    mascotas = mostrarmacota()  
+    return render_template('mascotas.html', Mascot=mascotas)
 
 
 @app.route('/empleados')
@@ -163,15 +162,25 @@ def agregarpropietario():
        categorias = mostrarcategoriasp()
        return render_template("agregarpropietario.html", mascot=mascotas, categ=categorias)
     elif request.method == "POST":
-        # Datos de la persona
-        nombre = request.form.get("nombrep")
-        apellido = request.form.get("apellidop")
-        cedula = request.form.get("cedp")
-        telefono = request.form.get("telp")
-        correo = request.form.get("corp")
-        direccion = request.form.get("dirp") 
-        insertarpersona(nombre, apellido, cedula, telefono, correo, direccion)
-        return redirect ('/propietarios')
+    # Datos de la persona
+      nombre = request.form.get("nombrep")
+      apellido = request.form.get("apellidop")
+      cedula = request.form.get("cedp")
+      telefono = request.form.get("telp")
+      correo = request.form.get("corp")
+      direccion = request.form.get("dirp") 
+      tipo = request.form.get("tipop")  # ID del tipo cliente
+      mascota_id = request.form.get("mascotap")  # ID de mascota
+
+      print("Datos recibidos:", nombre, apellido, cedula, telefono, correo, direccion, tipo, mascota_id)
+
+      persona_id = insertarpersona(nombre, apellido, cedula, telefono, correo, direccion)
+
+    if persona_id and mascota_id:
+        insertarpropietario(persona_id, tipo, mascota_id)
+        return redirect('/propietarios')
+    else:
+        return "Error: no se pudo insertar el propietario"
 
 
 #CATEGORIAS CLIENTE

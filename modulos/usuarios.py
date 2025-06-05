@@ -22,7 +22,7 @@ def rolesPorUsuario(usuario):
     cursor = con.cursor()
     cursor.execute("""  SELECT R.ROLES
                         FROM	ROLES AS R
-                        INNER JOIN USUARIOS AS U ON U.ID_USUARIOS = R.USUARIOS_ID
+                        INNER JOIN USUARIOS AS U ON U.ID_USUARIOS = R.USUARIO_IDR
                         WHERE U.USUARIO LIKE ? """, usuario)
     roles = cursor.fetchall()
     cursor.close()
