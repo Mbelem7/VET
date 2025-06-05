@@ -159,7 +159,7 @@ body .principal {
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    width: 11rem;
+    width: 9rem;
     transition: transform 0.3s ease;
 }
 
@@ -216,8 +216,8 @@ a {
     fill: #D4A373;
     /* Color inicial */
     transition: transform 0.3s ease;
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 160px;
     align-items: center;
     padding-left: 20px;
 
@@ -241,26 +241,17 @@ a {
 
 /* MASCOTAS */
 .btnagregar {
-    width: 50%;
-    height: 40px;
-    margin: 10px auto;
-    justify-content: center;
-    display: block;
-    color: #fff;
-    background: #004B23;
-    font-size: 1em;
-    font-weight: bold;
-    margin-top: 30px;
-    outline: none;
+   margin-left: 20px;
+    font-weight: 700;
+    color: #63733d;
+    background-color: #c7d383;
+    padding: 9px 25px;
     border: none;
-    border-radius: 5px;
-    transition: .2s ease-in;
+    border-radius: 20px;
     cursor: pointer;
+    transition: all 0.3s ease 0s; 
 }
 
-.btnagregar:hover {
-    background: #1F8D1F;
-}
 
 /* TABLA */
 #mascotas {
@@ -268,8 +259,7 @@ a {
 
 }
 
-.mascotas,
-.propietario {
+.mascotas {
     /* display: flex;
     flex-direction: column; */
     padding-bottom: 20px;
@@ -335,7 +325,11 @@ a {
 }
 
 #agregar-mascota,
-#agregar-propietario {
+#agregar-propietario,
+#agregar-servicio,
+#agregar-empleado,
+#agregar-consulta,
+#agregar-proveedor {
     margin-left: 20px;
     font-weight: 700;
     color: #63733d;
@@ -395,7 +389,7 @@ section h3 {
 }
 
 .info label {
-    width: 100px;
+    width: 120px;
     font-weight: bold;
 }
 
@@ -434,6 +428,7 @@ section h3 {
     padding: 40px 20px;
     text-align: center;
     color: white;
+    padding-bottom: 20px;
 }
 
 .titulo-seccion {
@@ -509,9 +504,10 @@ div .botonesproductos {
 
 body .bodyproductos {
     background: #FEFAE0;
-    padding: 40px 20px;
+    padding: 0px 20px;
     text-align: center;
     color: white;
+    padding-bottom: 20px;
 }
 
 /* FIN PRODUCTOS */
@@ -530,13 +526,27 @@ body .bodyproductos {
 
 
 body .bodycompra {
-    background: #004420;
-    padding: 40px 20px;
+    background: linear-gradient(to right, #e9edc9, #c7d383);
+    padding: 0px 20px;
     /* text-align: center; */
-    color: #DFDC88;
+    color: #809250;
+    padding-bottom: 20px;
 }
 
-
-
-
 /* FIN COMPRA */
+
+/* VENTAS */
+body .ventas {
+    background: linear-gradient(to right, #e9edc9, #c7d383);
+    padding: 0px 20px;
+    /* text-align: center; */
+    color: #809250;
+    padding-bottom: 20px;
+}
+/* FIN DE VENTAS */
+
+/* CONSULTAS */
+
+
+
+/* FIN CONSULTAS */

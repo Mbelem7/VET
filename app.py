@@ -1,6 +1,12 @@
 from flask import Flask, render_template, request, redirect, session, jsonify
 from modulos.helpers import *
 from modulos.usuarios import buscarUsuario, rolesPorUsuario
+from modulos.razas import  *
+from modulos.mascotas import *
+from modulos.categoriasprod import *
+from modulos.categoriasp import *
+from modulos.personas import *
+from modulos.propietario import * 
 from flask_session import Session
 # form modulos.productos import *
 
@@ -41,11 +47,6 @@ def login():
          return render_template ('login.html')
 
 
-@app.route('/mascotas')
-@login_required
-@veterinario_required
-def mascotas():
-   return render_template ('mascotas.html')
 
 
 @app.route('/productos')
@@ -66,6 +67,55 @@ def ventas():
 def compra():
    return render_template ('compra.html')
 
+@app.route('/servicios')
+@login_required
+def servicios():
+   return render_template ('servicios.html')
+
+@app.route('/agregarservicios')
+@login_required
+def agregarservicios():
+   return render_template ('agregarservicios.html')
+
+@app.route('/mascotas')
+@login_required
+def mascotas():
+   #  mascotas = mostrarmacota()  
+   #, Mascot=mascotas
+    return render_template('mascotas.html')
+
+
+@app.route('/empleados')
+@login_required
+def empleados():
+   return render_template ('empleados.html')
+
+@app.route('/agregarempleados')
+@login_required
+def agregarempleados():
+   return render_template ('agregarempleados.html')
+
+@app.route('/consultas')
+@login_required
+def consultas():
+   return render_template ('consultas.html')
+
+@app.route('/agregarconsultas')
+@login_required
+def agregarconsultas():
+   return render_template ('agregarconsultas.html')
+
+@app.route('/proveedores')
+@login_required
+def proveedores():
+   return render_template ('proveedores.html')
+
+@app.route('/propietarios')
+@login_required
+def propietarios():
+   return render_template ('propietarios.html')
+
+#cerrar sesion
 @app.route('/logout')
 def logout():
       """Log user out."""
@@ -74,6 +124,72 @@ def logout():
    
       # Redirect user to login form
       return redirect("/login")
+
+#FORMULARIO MASCOTA
+@app.route('/agregarmascotas', methods=["GET","POST"])
+@login_required
+@veterinario_required
+def agregarmascotas():
+   if request.method == "GET":
+      especie = mostrarespecie()
+      return render_template ('agregarmascotas.html', espe = especie)
+   elif request.method == "POST":
+      Nombremascota = request.form.get("nombrem")
+      Edad = request.form.get("edadm")
+      Peso = request.form.get("pesom")
+      Sexo = request.form.get("sexom")
+      Raza= request.form.get("razam")
+      insertarmascota (Nombremascota, Edad, Peso, Sexo, Raza )
+      return redirect ('/mascotas')
+
+#RAZAS Y ESPECIES
+@app.route('/razas/<int:especie_id>', methods=['GET'])
+@login_required
+def razas(especie_id):
+    # Obtén las razas asociados a la especie dada
+   razas = mostrarraza(especie_id)  # Función que consulta las razas por especie
+    # Convertir la lista de tuplas a diccionarios
+   razas_dict = [{'id': razas[0], 'nombre': razas[1]} for razas in razas]
+    # Devolvemos la lista de razas como un JSON
+   return jsonify(razas_dict)
+
+#FORMULARIO PROPIETARIO
+@app.route('/agregarpropietario', methods=["GET", "POST"])
+@login_required
+@veterinario_required
+def agregarpropietario():
+    if request.method == "GET":
+       mascotas = mostrartodaslasmascotas()
+       categorias = mostrarcategoriasp()
+       return render_template("agregarpropietario.html", mascot=mascotas, categ=categorias)
+    elif request.method == "POST":
+        # Datos de la persona
+        nombre = request.form.get("nombrep")
+        apellido = request.form.get("apellidop")
+        cedula = request.form.get("cedp")
+        telefono = request.form.get("telp")
+        correo = request.form.get("corp")
+        direccion = request.form.get("dirp") 
+        insertarpersona(nombre, apellido, cedula, telefono, correo, direccion)
+        return redirect ('/propietarios')
+
+
+#CATEGORIAS CLIENTE
+@app.route('/tiposclientes', methods=['GET'])
+@login_required
+def tiposclientes():
+    categorias = mostrarcategoriasp()  # [(id, nombre), ...]
+    categorias_dict = [{'id': c[0], 'nombre': c[1]} for c in categorias]
+    return jsonify(categorias_dict)
+
+#CATEGORIAS PRODUCTOS
+@app.route('/compra', methods=['GET'])
+@login_required
+def categorias():
+   if request.method == "GET":
+      categ = mostrarcategoria()
+      return render_template ('compra.html', categ = categ)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

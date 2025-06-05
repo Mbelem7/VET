@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Consultas</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="../static/styles/stylesindex.css">
+{% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <div class="form-box">
+                <!-- DATOS DEL EMPLEADO -->
+      <section class="formulario">
+        <h3> Datos del Empleado</h3>
+        <br>
+        <div class="info">
+          <label for="nombrep">Nombre: </label>
+          <input type="text" class="form-control" placeholder="Nombre del Empleado" required id="nombrep"
+            name="nombreemp" />
+        </div>
+        <br>
+        <div class="info">
+          <label for="contemp">Contraseña: </label>
+          <input type="password" class="form-control" placeholder="Contraseña del Empleado" required id="contemp" name="contemp" />
+        </div>
+        <br>
+        <div class="info">
+          <label for="rolemp">Rol: </label>
+          <input type="text" class="form-control" placeholder="Rol del Empleado" required id="rolemp" name="rolemp" />
+        </div>
+            <div class="botonesproducto">
+              <input type="button" value="Agregar Empleado" id="agregar-empleado">
+            </div>
+
+      </section>
+      <br>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

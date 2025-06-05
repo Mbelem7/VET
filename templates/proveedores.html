@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Proveedores</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="../static/styles/stylesindex.css">
+{% endblock %}
+
+{% block body %}
+<div class="proveedores">
+
+  <h2 class="menu">Proveedores</h2>
+  <br>
+  <div class="form-container">
+    <div class="form-box">
+<!-- DATOS PROPIETARIO -->
+      <section class="formulario">
+        <h3> Datos del Proveedor</h3>
+        <br>
+        <div class="info">
+          <label for="nombreprov">Nombre: </label>
+          <input type="text" class="form-control" placeholder="Nombre del Proveedor" required id="nombreprov"
+            name="nombreprov" />
+        </div>
+        <br>
+        <div class="info">
+          <label for="telprov">Teléfono: </label>
+          <input type="text" class="form-control" placeholder="Teléfono del Proveedor" required id="telprov" name="telprov" />
+        </div>
+        <br>
+                <div class="info">
+            <label for="corprov">Correo: </label>
+            <input type="email" class="form-control" placeholder="Correo del Proveedor" required id="corprov" name="corprov">
+        </div>
+        <br>
+        <div class="info">
+          <label for="dirprov">Dirección: </label>
+          <input type="text" class="form-control" placeholder="Dirección del Proveedor" required id="dirprov" name="dirprov" />
+        </div>
+        <br>
+            <div class="botonesproducto">
+              <input type="button" value="Agregar Proveedor" id="agregar-proveedor">
+            </div>
+
+      </section>
+      <br>
+  <!-- TABLA -->
+  <div class="contenedor-tabla">
+    <div class="tabla-negocios">
+      <div class="encabezado-tabla">
+        <h4 class="titulo-tabla">Mis Negocios</h4>
+      </div>
+      <div class="cuerpo-tabla">
+        <div class="tabla-responsive">
+          <table id="tabla-negocios" class="tabla">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Dirección</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- {% for i in Nego %}
+              <tr>
+                <td>{{ i[0] }}</td>
+                <td>{{ i[1] }}</td>
+                <td>{{ i[2] }}</td>
+                <td>{{ i[3] }}</td>
+              </tr>
+              {% endfor %} -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+    </div>
+    
+  
+
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="../static/js/jsmascota.js"> </script>
+{% endblock %}

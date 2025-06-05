@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-<title>Nuevo producto</title>
+<title>Compra</title>
 {% endblock %}
 
 {% block css %}
@@ -12,53 +12,63 @@
 <div class="bodycompra">
     <h2 class="productos">Nuevo Producto</h2>
 
-    <section >
-        <h3> Agregar nuevo producto</h3>
-        <br>
-        <div class="contenedorlabel">
-            <div class="info">
-                <label for="nombrep">Nombre: </label>
-                <input type="text" class="form-control" placeholder="Nombres del producto" required id="nombrep"
-                    name="nombrep" />
-            </div>
-            <br>
-            <div class="info">
-                <label for="descripcionp">Descripcion: </label>
-                <input type="text" class="form-control" placeholder="Descripcion" required id="descripcionp"
-                    name="descripcionp" />
-            </div>
-            <br>
-            <div class="info">
-                <label for="precionp">Precio: </label>
-                <input type="text" class="form-control" placeholder="Precio" required id="preciop" name="preciop" />
-            </div>
-            <br>
-            <div class="info">
-                <label for="precionp">Precio: </label>
-                <input type="text" class="form-control" placeholder="Precio" required id="preciop" name="preciop" />
-            </div>
-            <br>
-            <div class="info">
-                <label for="unidadesp">Unidades: </label>
-                <input type="text" class="form-control" placeholder="Unidades" required id="unidadesp"
-                    name="unidadesp" />
-            </div>
-            <br>
-            <div class="form-group">
-                <label for="categoria">Categoria:</label>
-                <select class="form-control" name="categoria" id="categoria">
-                    <!-- {% for i in Cat %}
-                <option value="{{ i[0] }}">{{ i[1] }}</option>
-                {% endfor %} -->
-                </select>
-            </div>
+
+    <div class="form-container">
+        <div class="form-box">
+
+            <!-- DATOS Nuevo producto -->
+            <section class="formulario">
+                <h3> Ingrese los datos del nuevo producto</h3>
+                <br>
+                <div class="contenedorlabel">
+                    <div class="info">
+                        <label for="nombrep">Nombre: </label>
+                        <input type="text" class="form-control" placeholder="Nombres del producto" required id="nombrep"
+                            name="nombrep" />
+                    </div>
+
+                    <div class="info">
+                        <label for="descripp">Descripción: </label>
+                        <input type="text" class="form-control" placeholder="Descripcion" required id="descripp"
+                            name="descripp" />
+                    </div>
+
+                    <div class="info">
+                        <label for="precionp">Precio: </label>
+                        <input type="text" class="form-control" placeholder="Precio" required id="preciop"
+                            name="preciop" />
+                    </div>
+
+                    <div class="info">
+                        <label for="unidadesp">Unidades: </label>
+                        <input type="text" class="form-control" placeholder="Unidades" required id="unidadesp"
+                            name="unidadesp" />
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="categoria">Categoria:</label>
+                        <select class="form-control" name="categoria" id="categoria">
+                            {% for i in categ %}
+                            <option value="{{ i[0] }}">{{ i[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+
+                <br>
+                <div class="botonesproducto">
+                    <input type="button" value="Guardar" id="agregar-mascota">
+                </div>
+
+            </section>
+
         </div>
-
-    </section>
-
+    </div>
 </div>
 
 {% endblock %}
 
 {% block js %}
+<script src="../static/js/categoria.js"></script>
 {% endblock %}

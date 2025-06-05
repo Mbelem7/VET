@@ -9,8 +9,58 @@
 {% endblock %}
 
 {% block body %}
-<h2 class="menu">Nueva Venta</h2>
-{% endblock %}
 
-{% block js %}
-{% endblock %}
+<div class="mascotas">
+
+  <h2 class="menu">Ventas</h2>
+  <div class="form-container">
+    <div class="form-box">
+      <!-- DATOS DE LA VENTA-->
+      <section class="formulario">
+        <h3>Datos de la Venta</h3>
+        <div class="info">
+          <label for="fev">Fecha de la venta: </label>
+          <input type="date" class="form-control" placeholder="Fecha de la venta" required id="fev" name="fev">
+        </div>
+        <div class="info">
+          <label for="totv">Total: </label>
+          <input type="number" class="form-control" placeholder="Total de la Venta" id="totv" name="totv">
+        </div>
+      </section>
+      <!-- TABLA -->
+      <div class="contenedor-tabla">
+        <div class="tabla-negocios">
+          <div class="encabezado-tabla">
+            <h4 class="titulo-tabla">Mis Negocios</h4>
+          </div>
+          <div class="cuerpo-tabla">
+            <div class="tabla-responsive">
+              <table id="tabla-negocios" class="tabla">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- {% for i in Nego %}
+                <tr>
+                  <td>{{ i[0] }}</td>
+                  <td>{{ i[1] }}</td>
+                </tr>
+                {% endfor %} -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+  {% endblock %}
+
+  {% block js %}
+  {% endblock %}

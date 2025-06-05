@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-<title>Servicios</title>
+<title>Propietario</title>
 {% endblock %}
 
 {% block css %}
@@ -11,45 +11,55 @@
 {% block body %}
 <div class="mascotas">
 
-  <h2 class="menu">Servicios</h2>
-
+  <h2 class="menu">Mascotas</h2>
+  <img class="fotomascotas" src="../static/assets/img/mascotasfoto.png" alt="">
   <div class="form-container">
     <div class="form-box">
-      <a href="/agregarservicios"> <button class="btnagregar">Agregar Servicios</button></a>
+      <a href="/agregarpropietario"> <button class="btnagregar">Agregar Propietario</button></a>
+      <br>
       <!-- TABLA -->
       <div class="contenedor-tabla">
         <div class="tabla-negocios">
           <div class="encabezado-tabla">
-            <h4 class="titulo-tabla">Historial de servicios</h4>
+            <h4 class="titulo-tabla">Historial de Mascotas</h4>
           </div>
           <div class="cuerpo-tabla">
             <div class="tabla-responsive">
               <table id="tabla-negocios" class="tabla">
                 <thead>
                   <tr>
-                    <th>Fecha</th>
-                    <th>Descripción</th>
-                    <th>Total</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Peso</th>
+                    <th>Sexo</th>
+                    <th>Raza</th>
+                    <th>Propietario</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- {% for i in Nego %}
-                <tr>
-                  <td>{{ i[0] }}</td>
-                  <td>{{ i[1] }}</td>
-                  <td>{{ i[2] }}</td>
-                </tr>
-                {% endfor %} -->
+                  <!-- {% for i in Mascot %}
+              <tr>
+                <td>{{ i[0] }}</td>
+                <td>{{ i[1] }}</td>
+                <td>{{ i[2] }}</td>
+                <td>{{ i[3] }}</td>
+                <td>{{ i[4] }}</td>
+                <td>{{ i[5] }}</td>
+              </tr> -->
+              {% endfor %}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
-  
+
+
 </div>
+
 
 {% endblock %}
 

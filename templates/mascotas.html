@@ -6,7 +6,6 @@
 
 {% block css %}
 <link rel="stylesheet" href="../static/styles/stylesindex.css">
-<link rel="stylesheet" href="../static/styles/carrusel2.css">
 {% endblock %}
 
 {% block body %}
@@ -16,204 +15,61 @@
   <img class="fotomascotas" src="../static/assets/img/mascotasfoto.png" alt="">
   <div class="form-container">
     <div class="form-box">
-      <!-- DATOS MASCOTA -->
-      <section class="formulario">
-        <h3> Datos de la Mascota</h3>
-        <br>
-        <div class="info">
-          <label for="nombrem">Nombre: </label>
-          <input type="text" class="form-control" placeholder="Nombres de la mascota" required id="nombrem"
-            name="nombrem" />
-        </div>
-        <br>
-        <div class="info">
-          <label for="edadm">Edad: </label>
-          <input type="text" class="form-control" placeholder="Edad de la mascota" required id="edadm" name="edadm" />
-        </div>
-        <br>
-        <div class="info">
-          <label for="pesom">Peso: </label>
-          <input type="text" class="form-control" placeholder="Peso de la mascota" required id="pesom" name="pesom" />
-        </div>
-        <br>
-        <div class="info">
-          <label for="sexom">Sexo: </label>
-          <input type="text" class="form-control" placeholder="Sexo de la mascota" required id="sexom" name="sexom" />
-        </div>
-        <br>
-        <div class="form-group">
-          <label for="especiem">Especie:</label>
-          <select class="form-control" name="especiem" id="especiem">
-            <!-- {% for i in Cat %}
-                <option value="{{ i[0] }}">{{ i[1] }}</option>
-                {% endfor %} -->
-          </select>
-
-          <br>
-          <div class="form-group">
-            <label for="razam">Raza:</label>
-            <select class="form-control" name="razam" id="razam">
-              <!-- {% for i in Cat %}
-                <option value="{{ i[0] }}">{{ i[1] }}</option>
-                {% endfor %} -->
-            </select>
-
-            <br>
-            <br>
-            <div class="botonesproducto">
-              <input type="button" value="Agregar Mascota" id="agregar-mascota">
-            </div>
-
-      </section>
+      <a href="/agregarmascotas"> <button class="btnagregar">Agregar Mascota</button></a>
       <br>
-
-    </div>
-
-
-  </div>
-  <!-- TABLA -->
-  <div class="contenedor-tabla">
-    <div class="tabla-negocios">
-      <div class="encabezado-tabla">
-        <h4 class="titulo-tabla">Mis Negocios</h4>
-      </div>
-      <div class="cuerpo-tabla">
-        <div class="tabla-responsive">
-          <table id="tabla-negocios" class="tabla">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Edad</th>
-                <th>Peso</th>
-                <th>Sexo</th>
-                <th>Raza</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- {% for i in Nego %}
+      <!-- TABLA -->
+      <div class="contenedor-tabla">
+        <div class="tabla-negocios">
+          <div class="encabezado-tabla">
+            <h4 class="titulo-tabla">Historial de Mascotas</h4>
+          </div>
+          <div class="cuerpo-tabla">
+            <div class="tabla-responsive">
+              <table id="tabla-negocios" class="tabla">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Peso</th>
+                    <th>Sexo</th>
+                    <th>Raza</th>
+                    <th>Propietario</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- {% for i in Mascot %}
               <tr>
                 <td>{{ i[0] }}</td>
                 <td>{{ i[1] }}</td>
                 <td>{{ i[2] }}</td>
                 <td>{{ i[3] }}</td>
                 <td>{{ i[4] }}</td>
-              </tr>
-              {% endfor %} -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div class="mascotas">
-
-  <!-- <h2 class="menu">Mascotas</h2>
-  <img class="fotomascotas" src="../static/assets/img/mascotasfoto.png" alt=""> -->
-  <div class="propietario hide">
-    <div class="form-container">
-      <div class="form-box">
-        <!-- DATOS PROPIETARIO -->
-        <section class="formulario">
-          <h3> Datos del Propietario</h3>
-          <br>
-          <div class="info">
-            <label for="nombrepp">Nombre: </label>
-            <input type="text" class="form-control" placeholder="Nombres del propietario" required id="nombrepp"
-              name="nombrepp" />
-          </div>
-          <br>
-          <div class="info">
-            <label for="apellidopp">Apellido: </label>
-            <input type="text" class="form-control" placeholder="Apellidos del propietario" required id="apellidopp"
-              name="apellidopp" />
-          </div>
-          <br>
-          <div class="info">
-            <label for="cedulapp">Cedula: </label>
-            <input type="text" class="form-control" placeholder="Cedula de identificacion" required id="cedulapp"
-              name="cedulapp" />
-          </div>
-          <br>
-          <div class="info">
-            <label for="telfpp">Telefono: </label>
-            <input type="text" class="form-control" placeholder="numero de telefono" required id="telfpp" name="telfpp" />
-          </div>
-          <br>
-          <div class="info">
-            <label for="correopp">Correo: </label>
-            <input type="email" class="form-control" placeholder="Correo del propietario" required id="correopp"
-              name="correopp" />
-          </div>
-          <br>
-          <div class="info">
-            <label for="direcpp">Direccion: </label>
-            <input type="text" class="form-control" placeholder="Sexo de la mascota" required id="direcpp"
-              name="direcpp" />
-          </div>
-          <br>
-          <div class="form-group">
-            <label for="mascotapp">Mascota:</label>
-            <select class="form-control" name="mascotapp" id="mascotapp">
-              <!-- {% for i in Cat %}
-                  <option value="{{ i[0] }}">{{ i[1] }}</option>
-                  {% endfor %} -->
-            </select>
-  
-            <br>
-            <br>
-            <div class="botonesproducto">
-              <input type="button" value="Agregar Propietario" id="agregar-propietario">
+                <td>{{ i[5] }}</td>
+              </tr> -->
+              {% endfor %}
+                </tbody>
+              </table>
             </div>
-        </section>
-  
-      </div>
-  
-  
-    </div>
-  
-    <!-- TABLA -->
-    <div class="contenedor-tabla">
-      <div class="tabla-negocios">
-        <div class="encabezado-tabla">
-          <h4 class="titulo-tabla">Mis Negocios</h4>
-        </div>
-        <div class="cuerpo-tabla">
-          <div class="tabla-responsive">
-            <table id="tabla-negocios" class="tabla">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Edad</th>
-                  <th>Peso</th>
-                  <th>Sexo</th>
-                  <th>Raza</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- {% for i in Nego %}
-                <tr>
-                  <td>{{ i[0] }}</td>
-                  <td>{{ i[1] }}</td>
-                  <td>{{ i[2] }}</td>
-                  <td>{{ i[3] }}</td>
-                  <td>{{ i[4] }}</td>
-                </tr>
-                {% endfor %} -->
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
+
     </div>
-  
   </div>
+
+
 </div>
+
+
 {% endblock %}
 
 {% block js %}
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-<script src="../static/js/jsmascota.js"> </script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<!-- DataTables CSS (puedes ponerlo en tu bloque css si prefieres) -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+<script src="../static/js/tablas.js"></script>
 {% endblock %}

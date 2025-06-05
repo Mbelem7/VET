@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Agregar Consultas</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="../static/styles/stylesindex.css">
+{% endblock %}
+
+{% block body %}
+<div class="mascotas">
+  <h2 class="menu">Nueva Consulta</h2>
+  <br>
+  <div class="form-container">
+    <div class="form-box">
+      <!-- DATOS CONSULTA -->
+      <section class="formulario">
+        <h3> Datos de la Consulta</h3>
+        <br>
+        <div class="info">
+          <label for="fecc">Fecha: </label>
+          <input type="date" class="form-control" placeholder="Fecha de la Consulta" required id="fecc" name="fecc" />
+        </div>
+        <br>
+        <div class="info">
+          <label for="dec">Descripción: </label>
+          <input type="text" class="form-control" placeholder="Descripción de la Consulta" required id="dec"
+            name="dec" />
+        </div>
+        <br>
+        <div class="info">
+          <label for="dic">Diagnóstico: </label>
+          <input type="text" class="form-control" placeholder="Diagnóstico de la Consulta" required id="dic"
+            name="dic" />
+        </div>
+        <br>
+        <div class="info">
+          <label for="tra">Tratamiento: </label>
+          <input type="text" class="form-control" placeholder="Tratamiento de la Mascota" required id="tra"
+            name="tra" />
+        </div>
+        <br>
+        <div class="info">
+          <label for="prec">Precio: </label>
+          <input type="text" class="form-control" placeholder="Precio de la Consulta" required id="prec" name="prec" />
+        </div>
+      </section>
+
+      <br>
+      <br>
+
+      <div class="botonesproducto">
+        <input type="button" value="Guardar" id="agregar-mascota">
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

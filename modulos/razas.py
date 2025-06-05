@@ -12,7 +12,14 @@ def mostrarespecie():
 
 def mostrarraza(idespecie):
     cursor = con.cursor()
-    cursor.execute ("SELECT idraza, nombre_raza FROM municipio WHERE id_especie = ?", idespecie)
+    cursor.execute ("SELECT id_raza, nombre_raza FROM RAZA WHERE ESPECIE_ID = ?", idespecie)
     raza = cursor.fetchall()
     cursor.close()
     return raza
+
+def mostrarmascotaporraza(idraza):
+    cursor = con.cursor()
+    cursor.execute ("SELECT id_mascota, nombre_mascota FROM MASCOTA WHERE RAZA_ID = ?", idraza)
+    mascota = cursor.fetchall()
+    cursor.close()
+    return mascota

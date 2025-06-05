@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Agregar Servicios</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="../static/styles/stylesindex.css">
+{% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <div class="form-box">
+        <!-- DATOS DEL SERVICIO-->
+         <section class="formulario">
+                <h3>Datos del Servicio</h3>
+                <div class="info">
+                    <label for="fecs">Fecha del Servicio: </label>
+                    <input type="date" class="form-control" placeholder="Fecha del Servicio" required id="fecs" name="fecs" >
+                </div>
+                <div class="info">
+                    <label for="dess">Descripción: </label>
+                    <input type="text" class="form-control" placeholder="Descripción del Servicio" id="dess" name="dess">
+                </div>
+                <div class="info">
+                    <label for="tots">Total: </label>
+                    <input type="number" class="form-control" placeholder="Total del Servicio" id="tots" name="tots">
+                </div>
+         </section>
+  </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

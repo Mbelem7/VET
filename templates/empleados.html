@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Empleados</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="../static/styles/stylesindex.css">
+{% endblock %}
+
+{% block body %}
+
+<div class="mascotas">
+
+
+  <h2 class="menu">Empleados</h2>
+  <div class="form-container">
+    <div class="form-box">
+
+      <a href="/agregarempleados"> <button class="btnagregar">Agregar Empleados</button></a>
+      <br>
+      <!-- TABLA -->
+      <div class="contenedor-tabla">
+        <div class="tabla-negocios">
+          <div class="encabezado-tabla">
+            <h4 class="titulo-tabla">Mis Negocios</h4>
+          </div>
+          <div class="cuerpo-tabla">
+            <div class="tabla-responsive">
+              <table id="tabla-negocios" class="tabla">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Rol</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- {% for i in Nego %}
+                    <tr>
+                      <td>{{ i[0] }}</td>
+                      <td>{{ i[1] }}</td>
+                    </tr>
+                    {% endfor %} -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<!-- DataTables CSS (puedes ponerlo en tu bloque css si prefieres) -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+<script src="../static/js/tablas.js"></script>
+{% endblock %}
