@@ -8,9 +8,16 @@ from modulos.categoriasp import *
 from modulos.personas import *
 from modulos.propietario import * 
 from flask_session import Session
-# form modulos.productos import *
+import pdfkit
+import pandas as pd
+from io import BytesIO
+from flask import send_file, render_template
+from flask import render_template, make_response, url_for
 
+# form modulos.productos import *
+from modulos.reportes import obtener_reporte_propietarios
 app = Flask(__name__)
+
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False #Cierra la sesion despues de 30 días
@@ -198,7 +205,62 @@ def categorias():
    if request.method == "GET":
       categ = mostrarcategoria()
       return render_template ('compra.html', categ = categ)
+   
+   #  Reportes
+@app.route('/reporte/propietarios')
+def reporte_propietarios():
+    datos = obtener_reporte_propietarios()
+    return render_template('reportes_propietarios.html', propietarios=datos)
 
+# Ruta para reporte PDF
+
+@app.route('/reporte/propietarios/pdf')
+@app.route('/reporte/propietarios/pdf')
+def reporte_propietarios_pdf():
+    # Obtener los datos (ajusta esto según tu lógica real)
+    datos = obtener_reporte_propietarios()  # <-- asegúrate de tener esta función
+
+    # Renderiza el HTML como string
+    rendered = render_template('reportes_propietarios_pdf.html', propietarios=datos)
+
+    # Ruta completa al ejecutable wkhtmltopdf (ajústala si lo tienes en otra carpeta)
+    path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+    config_pdfkit = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+
+    # Opciones necesarias para que funcione correctamente en Windows
+    options = {
+        'enable-local-file-access': None,
+        'encoding': 'UTF-8'
+    }
+
+    # Generar el PDF
+    pdf = pdfkit.from_string(rendered, False, configuration=config_pdfkit, options=options)
+
+    # Preparar respuesta HTTP con PDF
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'inline; filename=reporte_propietarios.pdf'
+    
+    return response
+
+# Ruta para reporte Excel
+@app.route('/reporte/propietarios/excel')
+def exportar_propietarios_excel():
+    datos = obtener_reporte_propietarios()
+    if not datos:
+        return "No hay datos para exportar", 404
+    df = pd.DataFrame(datos)
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Propietarios')
+    output.seek(0)
+    return send_file(
+        output,
+        download_name="reporte_propietarios.xlsx",
+        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        as_attachment=True
+    )
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
+

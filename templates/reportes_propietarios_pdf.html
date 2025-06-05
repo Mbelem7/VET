@@ -1,0 +1,46 @@
+
+{% block title %}
+<title>Agregar Servicios</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/stylesindex.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <div class="form-box">
+
+        <!-- DATOS DEL SERVICIO-->
+<div class="contenedor-tabla">
+        <div class="tabla-negocios">
+          <div class="encabezado-tabla">
+           <h1>Reporte de Propietarios</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th><th>Nombre</th><th>Apellido</th><th>Cédula</th><th>Teléfono</th><th>Correo</th><th>Dirección</th><th>Tipo Cliente</th><th>Estado</th><th>Mascota</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for propietario in propietarios %}
+            <tr>
+                <td>{{ propietario.ID_PROPIETARIO }}</td>
+                <td>{{ propietario.NOMBRE }}</td>
+                <td>{{ propietario.APELLIDO }}</td>
+                <td>{{ propietario.CEDULA }}</td>
+                <td>{{ propietario.TELEFONO }}</td>
+                <td>{{ propietario.CORREO }}</td>
+                <td>{{ propietario.DIRECCION }}</td>
+                <td>{{ propietario.TIPO_CLIENTE }}</td>
+                <td>{{ propietario.ESTADO }}</td>
+                <td>{{ propietario.MASCOTA or 'N/A' }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="10" style="text-align:center;">No hay propietarios para mostrar.</td></tr>
+            {% endfor %}
+        </tbody>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
