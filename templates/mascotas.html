@@ -35,6 +35,12 @@
                     <th>Sexo</th>
                     <th>Raza</th>
                     <th>Propietario</th>
+                    <th>Cédula</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Dirección</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -46,6 +52,14 @@
                     <td>{{ i[3] }}</td>
                     <td>{{ i[4] }}</td>
                     <td>{{ i[5] }}</td>
+                    <td>{{ i[6] }}</td>
+                    <td>{{ i[7] }}</td>
+                    <td>{{ i[8] }}</td>
+                    <td>{{ i[9] }}</td>
+                    <td>{{ i[10] }}</td>
+                    <td>
+                      <a href="{{ url_for('editar_mascota', idmascota=i[11]) }}" class="btn-editar">Editar</a>
+                    </td>
                   </tr>
                   {% endfor %}
                 </tbody>

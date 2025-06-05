@@ -11,3 +11,14 @@ def insertarpropietario(persona_id, tipocliente_id, mascota_id):
                    (persona_id, tipocliente_id, mascota_id))
     con.commit()
     cursor.close()
+
+def mostrarpropietarios():
+    cursor = con.cursor()
+    cursor.execute("""
+        SELECT per.id_persona, per.nombre
+        FROM persona AS per
+        INNER JOIN propietario AS prop ON per.id_persona = prop.persona_id
+    """)
+    propietarios = cursor.fetchall()
+    cursor.close()
+    return propietarios

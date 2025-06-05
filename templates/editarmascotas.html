@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Editar mascota</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/stylesindex.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="mascotas">
+    <div class="form-container">
+        <div class="form-box">
+            <h2>Editar Mascota</h2>
+            <form method="post">
+                <label>Nombre:</label>
+                <input type="text" name="nombre" value="{{ mascota[0] }}" readonly><br>
+                <label>Edad:</label>
+                <input type="text" name="edad" value="{{ mascota[1] }}" required><br>
+                <label>Peso:</label>
+                <input type="text" name="peso" value="{{ mascota[2] }}" required><br>
+                <label>Sexo:</label>
+                <input type="text" name="sexo" value="{{ mascota[3] }}" readonly><br>
+                <label>Raza:</label>
+                <select name="raza_id" disabled>
+                    {% for r in razas %}
+                    <option value="{{ r[0] }}" {% if r[1]==mascota[4] %}selected{% endif %}>{{ r[1] }}</option>
+                    {% endfor %}
+                </select><br>
+                <label>Propietario:</label>
+                <select name="propietario_id" required>
+                    {% for p in propietarios %}
+                    <option value="{{ p[0] }}" {% if p[1]==mascota[5] %}selected{% endif %}>{{ p[1] }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

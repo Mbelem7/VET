@@ -54,6 +54,14 @@
               name="dirp" />
           </div>
 
+          <div class="info">
+            <label for="estadop">Estado: </label>
+            <select class="form-control" id="estadop" name="estadop" required>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+          </div>
+
           <label for="tipop">Tipo:</label>
           <select class="form-control" name="tipop" id="tipop">
             {% for i in categ %}

@@ -17,9 +17,9 @@ def mostrarraza(idespecie):
     cursor.close()
     return raza
 
-def mostrarmascotaporraza(idraza):
+def mostrarraza_todas():
     cursor = con.cursor()
-    cursor.execute ("SELECT id_mascota, nombre_mascota FROM MASCOTA WHERE RAZA_ID = ?", idraza)
-    mascota = cursor.fetchall()
+    cursor.execute("SELECT id_raza, nombre_raza FROM raza")
+    razas = cursor.fetchall()
     cursor.close()
-    return mascota
+    return razas

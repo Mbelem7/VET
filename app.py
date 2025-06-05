@@ -80,9 +80,29 @@ def agregarservicios():
 @app.route('/mascotas')
 @login_required
 def mascotas():
-    mascotas = mostrarmacota()  
+    mascotas = mostrarmacota() 
     return render_template('mascotas.html', Mascot=mascotas)
 
+# @app.route('/editar_mascota')
+# @login_required
+# def editarmascota():
+#    return render_template ('editarmascotas.html')
+
+@app.route('/mascotas/editar/<int:idmascota>', methods=["GET", "POST"])
+@login_required
+def editar_mascota(idmascota):
+    if request.method == "POST":
+        edad = request.form.get("edad")
+        peso = request.form.get("peso")
+        propietario_id = int(request.form.get("propietario_id"))
+        actualizar_mascota(idmascota, edad, peso, propietario_id)
+        return redirect('/mascotas')
+    else:
+        mascota = mostrarmacota(idmascota)[0]
+        print("mascota[5]:", mascota[5], type(mascota[5]))
+        razas = mostrarraza_todas()  # Si tu template lo necesita
+        propietarios = mostrarpropietarios()
+        return render_template("editarmascotas.html", mascota=mascota, razas=razas, propietarios=propietarios)
 
 @app.route('/empleados')
 @login_required
@@ -158,29 +178,30 @@ def razas(especie_id):
 @veterinario_required
 def agregarpropietario():
     if request.method == "GET":
-       mascotas = mostrartodaslasmascotas()
-       categorias = mostrarcategoriasp()
-       return render_template("agregarpropietario.html", mascot=mascotas, categ=categorias)
+        mascotas = mostrartodaslasmascotas()
+        categorias = mostrarcategoriasp()
+        return render_template("agregarpropietario.html", mascot=mascotas, categ=categorias)
     elif request.method == "POST":
-    # Datos de la persona
-      nombre = request.form.get("nombrep")
-      apellido = request.form.get("apellidop")
-      cedula = request.form.get("cedp")
-      telefono = request.form.get("telp")
-      correo = request.form.get("corp")
-      direccion = request.form.get("dirp") 
-      tipo = request.form.get("tipop")  # ID del tipo cliente
-      mascota_id = request.form.get("mascotap")  # ID de mascota
+        # Datos de la persona
+        nombre = request.form.get("nombrep")
+        apellido = request.form.get("apellidop")
+        cedula = request.form.get("cedp")
+        telefono = request.form.get("telp")
+        correo = request.form.get("corp")
+        direccion = request.form.get("dirp")
+        tipo = request.form.get("tipop")  # ID del tipo cliente
+        mascota_id = request.form.get("mascotap")  # ID de mascota
+        estado = request.form.get("estadop")  # Estado del propietario
 
-      print("Datos recibidos:", nombre, apellido, cedula, telefono, correo, direccion, tipo, mascota_id)
+        print("Datos recibidos:", nombre, apellido, cedula, telefono, correo, direccion, tipo, mascota_id, estado)
 
-      persona_id = insertarpersona(nombre, apellido, cedula, telefono, correo, direccion)
+        persona_id = insertarpersona(nombre, apellido, cedula, telefono, correo, direccion)
 
-    if persona_id and mascota_id:
-        insertarpropietario(persona_id, tipo, mascota_id)
-        return redirect('/propietarios')
-    else:
-        return "Error: no se pudo insertar el propietario"
+        if persona_id and mascota_id:
+            insertarpropietario(persona_id, tipo, mascota_id, estado)
+            return redirect('/mascotas')
+        else:
+            return "Error: no se pudo insertar el propietario"
 
 
 #CATEGORIAS CLIENTE
