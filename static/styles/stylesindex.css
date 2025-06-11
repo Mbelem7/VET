@@ -33,6 +33,10 @@ body .principal {
 .header .logo {
     cursor: pointer;
     margin-right: auto;
+    display: flex;
+    align-items: center;
+    /* Centra verticalmente */
+    height: 100%;
 }
 
 .header .logo img {
@@ -102,6 +106,24 @@ body .principal {
     transform: scale(1.1);
 }
 
+.btn-editar {
+    margin-left: 10px;
+    font-weight: 150;
+    color: #63733d;
+    background-color: #c7d383;
+    padding: 5px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.btn-editar:hover {
+    color: #DFDC88;
+    background-color: #63733d;
+    transform: scale(1.1);
+}
+
 /* FIN NAVBAR */
 
 /* MENU */
@@ -129,14 +151,35 @@ body .principal {
 }
 
 .fotoperro {
-    width: 320px;
-    height: 450px;
+    width: 300px;
+    height: 400px;
     position: absolute;
-    right: 10px;
+    right: 100px;
     top: 100px;
 }
 
-.fotomascotas{
+/* Responsive para .fotoperro */
+@media (max-width: 900px) {
+    .fotoperro {
+        position: static;
+        width: 200px;
+        height: auto;
+        right: unset;
+        top: unset;
+        margin: 0 auto 20px auto;
+        display: block;
+    }
+}
+
+@media (max-width: 600px) {
+    .fotoperro {
+        width: 120px;
+        height: auto;
+        margin: 0 auto 10px auto;
+    }
+}
+
+.fotomascotas {
     width: 600px;
     height: 160px;
     display: block;
@@ -241,7 +284,7 @@ a {
 
 /* MASCOTAS */
 .btnagregar {
-   margin-left: 20px;
+    margin-left: 20px;
     font-weight: 700;
     color: #63733d;
     background-color: #c7d383;
@@ -249,7 +292,7 @@ a {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    transition: all 0.3s ease 0s; 
+    transition: all 0.3s ease 0s;
 }
 
 
@@ -314,15 +357,17 @@ a {
 .tabla th,
 .tabla td {
     border: 1px solid #FAEDCD;
-    padding: 5px 8px;      /* Menos espacio */
+    padding: 5px 8px;
+    /* Menos espacio */
     text-align: left;
-    font-size: 15px;       /* Más pequeño */
+    font-size: 15px;
+    /* Más pequeño */
     white-space: nowrap;
 }
 
 .tabla th {
     background-color: #FEFAE0;
-    font-size: 16px;  
+    font-size: 16px;
 }
 
 .tabla tr:hover {
@@ -359,11 +404,14 @@ a {
 .form-box {
     flex: 1;
     background-color: #FEFAE0;
-    padding: 16px 10px;  /* Menos padding */
+    padding: 16px 10px;
+    /* Menos padding */
     border-radius: 15px;
     color: #D4A373;
-    max-width: 1100px;   /* Limita el ancho máximo */
-    margin: 0 auto;      /* Centra el form-box */
+    max-width: 1100px;
+    /* Limita el ancho máximo */
+    margin: 0 auto;
+    /* Centra el form-box */
     box-sizing: border-box;
 }
 
@@ -448,27 +496,31 @@ section h3 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 .producto {
-    /* background-color: #2d8443; */
-    background-color: #809250;
-    /* blanco con transparencia */
-    border: 1px solid rgba(77, 89, 50, 0.3);
-    backdrop-filter: blur(5px);
-    border-radius: 10px;
-    width: 200px;
-    padding: 15px;
-    color: #fff;
-    transition: transform 0.2s ease-in-out;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    height: 430px; /* Ajusta según tu diseño */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: #8fa05a;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    margin: 15px;
+    padding: 20px 10px;
 }
 
+/* Contenedor de imagen: tamaño fijo */
 .producto img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 10px auto;
+    border-radius: 10px;
 }
 
 .producto h3 {
@@ -503,6 +555,7 @@ section h3 {
     cursor: pointer;
     transition: all 0.3s ease 0s;
 }
+
 
 div .botonesproductos {
     height: 100px;
@@ -540,6 +593,25 @@ body .bodycompra {
     padding-bottom: 20px;
 }
 
+/* Subir imagen */
+.upload-area {
+    border: 2px dashed #aaa;
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    
+    /* width: 300px; */
+    text-align: center;
+    border-radius: 10px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.upload-area.dragover {
+    background-color: #f9f9f9;
+    border-color: #888;
+}
+
 /* FIN COMPRA */
 
 /* VENTAS */
@@ -550,6 +622,7 @@ body .ventas {
     color: #809250;
     padding-bottom: 20px;
 }
+
 /* FIN DE VENTAS */
 
 /* CONSULTAS */

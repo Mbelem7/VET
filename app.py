@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, redirect, session, jsonify
+import os
+from werkzeug.utils import secure_filename
+from flask import Flask, render_template, request, redirect, session, jsonify, redirect, url_for
 from modulos.helpers import *
 from modulos.usuarios import buscarUsuario, rolesPorUsuario
 from modulos.razas import  *
@@ -7,8 +9,8 @@ from modulos.categoriasprod import *
 from modulos.categoriasp import *
 from modulos.personas import *
 from modulos.propietario import * 
+from modulos.productos import *
 from flask_session import Session
-# form modulos.productos import *
 
 app = Flask(__name__)
 
@@ -46,26 +48,16 @@ def login():
       elif request.method == 'GET':
          return render_template ('login.html')
 
-
-
-
-@app.route('/productos')
-@login_required
-@recepcionista_required
-def productos():
-   return render_template ('productos.html')
-
-
 @app.route('/ventas')
 @login_required
 def ventas():
    return render_template ('ventas.html')
 
 
-@app.route('/compra')
-@login_required
-def compra():
-   return render_template ('compra.html')
+# @app.route('/compra')
+# @login_required
+# def compra():
+#    return render_template ('compra.html')
 
 @app.route('/servicios')
 @login_required
@@ -82,11 +74,6 @@ def agregarservicios():
 def mascotas():
     mascotas = mostrarmacota() 
     return render_template('mascotas.html', Mascot=mascotas)
-
-# @app.route('/editar_mascota')
-# @login_required
-# def editarmascota():
-#    return render_template ('editarmascotas.html')
 
 @app.route('/mascotas/editar/<int:idmascota>', methods=["GET", "POST"])
 @login_required
@@ -213,13 +200,59 @@ def tiposclientes():
     return jsonify(categorias_dict)
 
 #CATEGORIAS PRODUCTOS
-@app.route('/compra', methods=['GET'])
-@login_required
-def categorias():
-   if request.method == "GET":
-      categ = mostrarcategoria()
-      return render_template ('compra.html', categ = categ)
+UPLOAD_FOLDER = 'static/assets/img'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/productos')
+@login_required
+@recepcionista_required
+def productos():
+     lista_productos = obtener_productos()
+     return render_template ('productos.html', productos=lista_productos)
+
+
+@app.route('/compra', methods=['GET', 'POST'])
+@login_required
+def compra():
+    if request.method == "POST":
+        nombre = request.form.get("nombrep")
+        descripcion = request.form.get("descripp")
+        precio = request.form.get("preciop")
+        unidades = request.form.get("unidadesp")
+        categoria = request.form.get("categoria")
+        file = request.files.get("imagenurl")
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            imagen_url = f"{UPLOAD_FOLDER}/{filename}"
+        else:
+            imagen_url = None
+         
+        print(nombre, imagen_url, descripcion, precio, unidades, categoria)
+        insertarproducto(nombre, imagen_url, descripcion, precio, unidades, categoria)
+        return redirect('/productos')
+
+    categ = mostrarcategoria()
+    return render_template('compra.html', categ=categ)
+
+#EDITAR PRODUCTO
+@app.route('/productos/editar/<int:idproducto>', methods=["GET", "POST"])
+@login_required
+def editar_producto(idproducto):
+    if request.method == "POST":
+        precio = request.form.get("preciop")
+        unidades = request.form.get("unidadesp")
+        actualizar_producto(idproducto, precio, unidades)
+        return redirect('/productos')
+    else:
+        producto = obtenerunproducto(idproducto)  # Usa la función que trae un solo producto
+        return render_template("editaproducto.html", producto=producto)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

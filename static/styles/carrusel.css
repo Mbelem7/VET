@@ -145,22 +145,22 @@
 
 .promo-box {
     display: flex;
-    width: 900px;
-    max-width: 1100px;
-    height: 300px;
-    margin: 0px 0 30px 0px; /* margen solo a la izquierda */
+    width: 700px;              /* Más pequeño */
+    max-width: 95vw;
+    height: auto;             /* Menos alto */
+    margin: 0 0 30px 0;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 15px;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    min-width: 450px;
+    min-width: 250px;
 
 }
 
 .carrusel{
     display: flex;
     justify-content: flex-start;
-    padding-left: 30px; 
+    padding-left: 150px; 
 }
 
 .promo-text {
@@ -184,55 +184,44 @@
 }
 
 .promo-carousel {
-    flex: 1;
-    height: 250px;
+     flex: 1;
+    height: 220px;             /* Menos alto */
     margin-right: 10px;
-    margin-top: 25px;
+    margin-top: 15px;
     margin-bottom: 10px;
     overflow: hidden;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .carousel-images {
     display: flex;
-    width: 100%;
+    width: 300%; /* 100% por cada imagen, si tienes 3 imágenes */
     height: 100%;
+    align-items: center;
     animation: slide 10s infinite ease-in-out;
 }
-
 .carousel-images img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100%;   /* Cada imagen ocupa el 100% del carrusel visible */
+    height: 200px;
+    object-fit: contain;
+    border-radius: 10px;
 }
 
 /* Animación del carrusel */
 @keyframes slide {
-    0% {
+    0%, 20% {
         transform: translateX(0%);
     }
-
-    30% {
-        transform: translateX(0%);
-    }
-
-    33% {
+    25%, 45% {
         transform: translateX(-100%);
     }
-
-    63% {
-        transform: translateX(-100%);
-    }
-
-    66% {
+    50%, 70% {
         transform: translateX(-200%);
     }
-
-    95% {
-        transform: translateX(-200%);
-    }
-
-    100% {
+    75%, 100% {
         transform: translateX(0%);
     }
 }
@@ -241,19 +230,20 @@
 @media (max-width: 768px) {
     .promo-box {
         flex-direction: column;
+        width: 98vw;
         height: auto;
+        min-width: unset;
     }
 
-    .promo-carousel,
-    .promo-text {
-        flex: unset;
+    .promo-carousel {
         width: 100%;
-        height: 200px;
+        height: 120px;
+        margin: 10px 0;
     }
 
     .promo-text {
-        height: auto;
-        padding: 20px;
+        width: 100%;
+        padding: 10px;
         text-align: center;
     }
 }
