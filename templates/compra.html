@@ -13,24 +13,19 @@
     <h2 class="productos">Nuevo Producto</h2>
 
     <form action="/compra" method="post" enctype="multipart/form-data">
-
         <div class="form-container">
             <div class="form-box">
-
                 <!-- DATOS Nuevo producto -->
                 <section class="formulario">
                     <h3> Ingrese los datos del nuevo producto</h3>
                     <br>
-
                     <div class="contenedorlabel">
                         <div class="info">
                             <label for="nombrep">Nombre: </label>
                             <input type="text" class="form-control" placeholder="Nombres del producto" required
-                                id="nombrep" name="nombrep" />
+                                id="nombrep" name="nombrep" data-letras/>
                         </div>
-
                         <br>
-
                         <div class="upload-area" id="drop-area">
                             <p>Arrastra la imagen aquí</p>
                             <input type="file" id="fileElem" name="imagenurl" accept="image/*" style="display:none"
@@ -39,26 +34,50 @@
                                 imagen</button>
                             <p id="fileName" style="margin-top:10px;"></p>
                         </div>
-
                         <br>
-
                         <div class="info">
                             <label for="descripp">Descripción: </label>
                             <input type="text" class="form-control" placeholder="Descripcion" required id="descripp"
                                 name="descripp" />
                         </div>
-
                         <div class="info">
                             <label for="preciop">Precio: </label>
-                            <input type="text" class="form-control" placeholder="Precio" required id="preciop"
+                            <input type="number" class="form-control" placeholder="Precio" required id="preciop"
                                 name="preciop" />
+                        </div>
+                        <div class="info" id="precio_unitario_div" style="display:none;">
+                            <label for="precio_unitario">Precio por kilo: </label>
+                            <input type="number" class="form-control" placeholder="Precio por kg" id="precio_unitario"
+                                name="precio_unitario" min="0" step="0.01" />
                         </div>
 
                         <div class="info">
-                            <label for="unidadesp">Unidades: </label>
-                            <input type="text" class="form-control" placeholder="Unidades" required id="unidadesp"
-                                name="unidadesp" />
+                            <label style="min-width:110px;">Tipo de venta:</label>
+                            <div class="radio-group">
+                                <input type="radio" id="venta_unidad" name="tipo_venta" value="unidad" checked>
+                                <label for="venta_unidad">Unidad</label>
+                                <input type="radio" id="venta_peso" name="tipo_venta" value="peso">
+                                <label for="venta_peso">Peso</label>
+                            </div>
                         </div>
+
+                        <div class="info" id="stock_unidades_div">
+                            <label for="unidadesp">Stock en unidades: </label>
+                            <input type="number" class="form-control" placeholder="Unidades" id="unidadesp"
+                                name="unidadesp" min="0" step="1" />
+                        </div>
+                        <div class="info" id="peso_por_unidad_div" style="display:none;">
+                            <label for="pesop">Peso por unidad (kg): </label>
+                            <input type="number" class="form-control" placeholder="Peso por unidad" id="pesop"
+                                name="pesop" min="0" step="0.01" />
+                        </div>
+
+                        <div class="info" id="stock_peso_div" style="display:none;">
+                            <label for="stockpesop">Stock total en peso (kg): </label>
+                            <input type="number" class="form-control" placeholder="Stock en peso" id="stockpesop"
+                                name="stockpesop" min="0" step="0.01" readonly />
+                        </div>
+
                         <br>
                         <div class="form-group">
                             <label for="categoria">Categoria:</label>
@@ -69,24 +88,79 @@
                             </select>
                         </div>
                     </div>
-
-
                     <br>
                     <div class="botonesproducto">
                         <input type="submit" value="Guardar" id="agregar-mascota">
                     </div>
-
                 </section>
-
             </div>
         </div>
     </form>
-
 </div>
-
 {% endblock %}
 
 {% block js %}
+<script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const radioUnidad = document.getElementById('venta_unidad');
+        const radioPeso = document.getElementById('venta_peso');
+
+        const stockUnidadesDiv = document.getElementById('stock_unidades_div');
+        const pesoPorUnidadDiv = document.getElementById('peso_por_unidad_div');
+        const stockPesoDiv = document.getElementById('stock_peso_div');
+        const precioUnitarioDiv = document.getElementById('precio_unitario_div');
+
+        const pesop = document.getElementById('pesop');
+        const unidadesp = document.getElementById('unidadesp');
+        const stockpesop = document.getElementById('stockpesop');
+
+        function actualizarCampos() {
+            if (radioUnidad.checked) {
+                stockUnidadesDiv.style.display = '';
+                pesoPorUnidadDiv.style.display = 'none';
+                stockPesoDiv.style.display = 'none';
+                precioUnitarioDiv.style.display = 'none';
+            } else {
+                stockUnidadesDiv.style.display = '';
+                pesoPorUnidadDiv.style.display = '';
+                stockPesoDiv.style.display = '';
+                precioUnitarioDiv.style.display = '';
+            }
+        }
+
+        function calcularStockPeso() {
+            const unidades = parseFloat(unidadesp.value) || 0;
+            const pesoUnidad = parseFloat(pesop.value) || 0;
+            const totalPesoKg = unidades * pesoUnidad;
+            stockpesop.value = totalPesoKg.toFixed(3);
+        }
+
+        // Mostrar u ocultar campos según tipo de venta
+        radioUnidad.addEventListener('change', actualizarCampos);
+        radioPeso.addEventListener('change', actualizarCampos);
+
+        // Actualizar stock en peso si cambia unidades o peso por unidad
+        pesop.addEventListener('input', calcularStockPeso);
+        unidadesp.addEventListener('input', calcularStockPeso);
+
+        // Conversión automática de libras a kilos si se ingresa en libras
+        pesop.addEventListener('blur', function () {
+            const pesoIngresado = parseFloat(pesop.value);
+            if (pesoIngresado && pesoIngresado > 0) {
+                const confirmacion = confirm("¿El peso ingresado está en libras? Se convertirá a kilogramos automáticamente.");
+                if (confirmacion) {
+                    const pesoKg = (pesoIngresado / 2.20462).toFixed(3); // 1 kg ≈ 2.20462 lb
+                    pesop.value = pesoKg;
+                    calcularStockPeso();
+                }
+            }
+        });
+
+        actualizarCampos();
+    });
+</script>
+
 <script src="../static/js/categoria.js"></script>
 <script src="../static/js/subir.js"></script>
 {% endblock %}

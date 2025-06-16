@@ -22,5 +22,10 @@ def insertarpersona(nombre, apellido, cedula, telefono, correo, direccion):
         traceback.print_exc()
         return None
 
-
+def obtener_id_persona(username):
+    cursor = con.cursor()
+    cursor.execute("SELECT PERSONA_IDU FROM USUARIOS WHERE USUARIO = ?", (username,))
+    row = cursor.fetchone()
+    cursor.close()
+    return row[0] if row else None
     

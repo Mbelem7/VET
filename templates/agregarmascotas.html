@@ -24,48 +24,47 @@
           <div class="info">
             <label for="nombrem">Nombre: </label>
             <input type="text" class="form-control" placeholder="Nombres de la mascota" required id="nombrem"
-              name="nombrem" />
+              name="nombrem" data-letras/>
           </div>
 
           <div class="info">
             <label for="edadm">Edad: </label>
-            <input type="text" class="form-control" placeholder="Edad de la mascota" required id="edadm" name="edadm" />
+            <input type="number" class="form-control" placeholder="Edad de la mascota" required id="edadm" name="edadm" />
           </div>
 
           <div class="info">
             <label for="pesom">Peso: </label>
-            <input type="text" class="form-control" placeholder="Peso de la mascota" required id="pesom" name="pesom" />
+            <input type="number" class="form-control" placeholder="Peso de la mascota" required id="pesom" name="pesom" />
           </div>
 
           <div class="info">
             <label for="sexom">Sexo: </label>
             <input type="text" class="form-control" placeholder="Sexo de la mascota" required id="sexom" name="sexom" />
           </div>
-          <br>
-          <div class="form-group">
+
+          <div class="info">
             <label for="especiem">Especie:</label>
             <select class="form-control" name="especiem" id="especiem">
               {% for i in espe %}
               <option value="{{ i[0] }}">{{ i[1] }}</option>
               {% endfor %}
-
             </select>
+          </div>
 
-            <br>
-            <br>
-            <div class="form-group">
-              <label for="razam">Raza:</label>
-              <select name="razam" id="razam" class="form-control" required>
-              </select>
-            </div>
+          <div class="info">
+            <label for="razam">Raza:</label>
+            <select name="razam" id="razam" class="form-control" required>
+            </select>
+          </div>
 
-            <br>
-            <br>
 
-            <div class="botonesproducto">
-              <input type="submit" value="Guardar" id="agregar-mascota">
-              <button class="btn btn-danger">Cancelar</button>
-            </div>
+          <br>
+          <br>
+
+          <div class="botonesproducto">
+            <input type="submit" value="Guardar" id="agregar-mascota">
+            <button class="btn btn-danger">Cancelar</button>
+          </div>
 
         </section>
         <br>
@@ -81,4 +80,5 @@
 
 {% block js %}
 <script src="../static/js/agregarmasc.js"> </script>
+<script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
 {% endblock %}

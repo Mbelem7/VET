@@ -3,12 +3,12 @@ import pyodbc
 
 con = BDconeccion()
 
-def insertarpropietario(persona_id, tipocliente_id, mascota_id):
+def insertarpropietario(persona_id, tipocliente_id, mascota_id, estado):
     cursor = con.cursor()
-    cursor.execute("""INSERT INTO propietario 
-                      (persona_id, tipocliente_id, mascota_id)
-                      VALUES (?, ?, ?)""", 
-                   (persona_id, tipocliente_id, mascota_id))
+    cursor.execute("""
+        INSERT INTO propietario (persona_id, tipocliente_id, mascota_id, estado)
+        VALUES (?, ?, ?, ?)
+    """, (persona_id, tipocliente_id, mascota_id, estado))
     con.commit()
     cursor.close()
 

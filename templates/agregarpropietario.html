@@ -17,43 +17,32 @@
       <div class="form-box">
         <!-- DATOS PROPIETARIO -->
         <section class="formulario">
-          <h3> Ingrese los Datos del Propietario</h3>
+          <h3>Ingrese los Datos del Propietario</h3>
           <br>
           <div class="info">
             <label for="nombrep">Nombre: </label>
-            <input type="text" class="form-control" placeholder="Nombre del Propietario" required id="nombrep"
-              name="nombrep" />
+            <input type="text" class="form-control" placeholder="Nombre del Propietario" required id="nombrep" name="nombrep" data-letras/>
           </div>
-
           <div class="info">
             <label for="apellidop">Apellido: </label>
-            <input type="text" class="form-control" placeholder="Apellido del Propietario" required id="apellidop"
-              name="apellidop" />
+            <input type="text" class="form-control" placeholder="Apellido del Propietario" required id="apellidop" name="apellidop" data-letras/>
           </div>
-
           <div class="info">
             <label for="cedp">Cédula: </label>
-            <input type="text" class="form-control" placeholder="Cédula del Propietario" required id="cedp" name="cedp">
+            <input type="text" class="form-control" placeholder="Cédula del Propietario" required id="cedp" name="cedp" />
           </div>
-
           <div class="info">
             <label for="telp">Teléfono: </label>
-            <input type="text" class="form-control" placeholder="Teléfono del Propietario" required id="telp"
-              name="telp" />
+            <input type="number" class="form-control" placeholder="Teléfono del Propietario" required id="telp" name="telp" maxlength="8" />
           </div>
-
           <div class="info">
             <label for="corp">Correo: </label>
-            <input type="email" class="form-control" placeholder="Correo del Propietario" required id="corp"
-              name="corp">
+            <input type="email" class="form-control" placeholder="Correo del Propietario" required id="corp" name="corp" />
           </div>
-
           <div class="info">
             <label for="dirp">Dirección: </label>
-            <input type="text" class="form-control" placeholder="Dirección del Propietario" required id="dirp"
-              name="dirp" />
+            <input type="text" class="form-control" placeholder="Dirección del Propietario" required id="dirp" name="dirp" />
           </div>
-
           <div class="info">
             <label for="estadop">Estado: </label>
             <select class="form-control" id="estadop" name="estadop" required>
@@ -61,44 +50,35 @@
               <option value="Inactivo">Inactivo</option>
             </select>
           </div>
-
-          <label for="tipop">Tipo:</label>
-          <select class="form-control" name="tipop" id="tipop">
-            {% for i in categ %}
-            <option value="{{ i[0] }}">{{ i[1] }}</option>
-            {% endfor %}
-
-          </select>
-          <br>
-          <br>
-
-          <label for="mascotap">Mascota:</label>
-          <select name="mascotap" required>
-            {% for m in mascot %}
-            <option value="{{ m[0] }}">{{ m[1] }}</option>
-            {% endfor %}
-          </select>
-
-          <br>
-          <br>
-
+          <div class="info">
+            <label for="tipop">Tipo:</label>
+            <select class="form-control" name="tipop" id="tipop">
+              {% for i in categ %}
+              <option value="{{ i[0] }}">{{ i[1] }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="info">
+            <label for="mascotap">Mascota:</label>
+            <select name="mascotap" id="mascotap" required>
+              {% for m in mascot %}
+              <option value="{{ m[0] }}">{{ m[1] }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <br><br>
           <div class="botonesproducto">
             <input type="submit" value="Guardar" id="agregar-mascota">
-            <button class="btn btn-danger">Cancelar</button>
+            <button type="button" class="btn btn-danger" onclick="window.history.back();">Cancelar</button>
           </div>
-
-
         </section>
         <br>
       </div>
     </div>
-
   </form>
-
-
 </div>
-
 {% endblock %}
 
 {% block js %}
+<script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
 {% endblock %}

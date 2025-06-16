@@ -8,17 +8,28 @@ def insertarPersona():
         cursor.execute(""" IF NOT EXISTS (SELECT 1 FROM PERSONA WHERE CEDULA = '000-000000-0000A')
                            BEGIN
                                 INSERT INTO PERSONA (NOMBRE,APELLIDO,CEDULA,TELEFONO,CORREO,DIRECCION)
-                                VALUES (?,?,?,?,?,?)
-                            END""",'Administrador', 'Sistema', '000-000000-0000A', 
-                                '80900000', 'admin@sitio.com','Veterinaria Ochoa')
+                                OUTPUT INSERTED.ID_PERSONA
+                                VALUES (?, ?, ?, ?, ?, ?)
+                            END""",
+            'Administrador', 'Sistema', '000-000000-0000A', '80900000', 'admin@sitio.com', 'Veterinaria Ochoa')
+        persona_id = None
+        try:
+            persona_id = cursor.fetchone()[0]
+        except:
+            # Ya existe, buscar el ID
+            cursor.execute("SELECT ID_PERSONA FROM PERSONA WHERE CEDULA = '000-000000-0000A'")
+            row = cursor.fetchone()
+            if row:
+                persona_id = row[0]
         con.commit()
-        print("Persona insertada correctamente.")
-    except pyodbc.Error as e:
+        print("Persona insertada correctamente. ID:", persona_id)
+        return persona_id
+    except Exception as e:
         print(f"Error al insertar persona: {e}")
     finally:
         con.close()
 
-def insertarCuenta():
+def insertarCuenta(persona_id):
     try:
         con = BDconeccion()
         cursor = con.cursor()
@@ -26,13 +37,20 @@ def insertarCuenta():
                             BEGIN
                                 INSERT INTO USUARIOS (USUARIO,CONTRASEÑA,PERSONA_IDU) 
                                 VALUES (?, ?, ?)
-                            END""", 'ADMIN', generate_password_hash('Belen123'), 1)
+                            END""", 'ADMIN', generate_password_hash('Belen123'), persona_id)
         con.commit()
         print("Cuenta insertada correctamente.")
-    except pyodbc.Error as e:
+    except Exception as e:
         print(f"Error al insertar cuenta: {e}")
     finally:
         con.close()
+
+# Llama a las funciones correctamente
+persona_id = insertarPersona()
+if persona_id:
+    insertarCuenta(persona_id)
+
+
 
 def insertarRoles():
     try:

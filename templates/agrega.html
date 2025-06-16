@@ -20,7 +20,7 @@
                 </div>
                 <div class="info">
                     <label for="dess">Descripción: </label>
-                    <input type="text" class="form-control" placeholder="Descripción del Servicio" id="dess" name="dess">
+                    <input type="text" class="form-control" placeholder="Descripción del Servicio" id="dess" name="dess" >
                 </div>
                 <div class="info">
                     <label for="tots">Total: </label>
@@ -33,4 +33,5 @@
 {% endblock %}
 
 {% block js %}
+<script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
 {% endblock %}

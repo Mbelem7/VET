@@ -38,12 +38,12 @@
         <div class="info">
           <label for="tra">Tratamiento: </label>
           <input type="text" class="form-control" placeholder="Tratamiento de la Mascota" required id="tra"
-            name="tra" />
+            name="tra"  />
         </div>
         <br>
         <div class="info">
           <label for="prec">Precio: </label>
-          <input type="text" class="form-control" placeholder="Precio de la Consulta" required id="prec" name="prec" />
+          <input type="number" class="form-control" placeholder="Precio de la Consulta" required id="prec" name="prec" />
         </div>
       </section>
 
@@ -62,4 +62,5 @@
 {% endblock %}
 
 {% block js %}
+<script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
 {% endblock %}

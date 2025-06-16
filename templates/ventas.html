@@ -5,62 +5,100 @@
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="../static/styles/stylesindex.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/stylesindex.css') }}">
 {% endblock %}
 
 {% block body %}
-
 <div class="mascotas">
-
   <h2 class="menu">Ventas</h2>
   <div class="form-container">
     <div class="form-box">
-      <!-- DATOS DE LA VENTA-->
-      <section class="formulario">
-        <h3>Datos de la Venta</h3>
-        <div class="info">
-          <label for="fev">Fecha de la venta: </label>
-          <input type="date" class="form-control" placeholder="Fecha de la venta" required id="fev" name="fev">
-        </div>
-        <div class="info">
-          <label for="totv">Total: </label>
-          <input type="number" class="form-control" placeholder="Total de la Venta" id="totv" name="totv">
-        </div>
-      </section>
-      <!-- TABLA -->
-      <div class="contenedor-tabla">
-        <div class="tabla-negocios">
-          <div class="encabezado-tabla">
-            <h4 class="titulo-tabla">Mis Negocios</h4>
+
+      <form action="/realizar_venta" method="post" id="ventaForm" autocomplete="off">
+        <section class="formulario">
+
+          <h3>Datos de la Venta</h3>
+
+          <!-- Sección para agregar productos -->
+          <div class="info" style="position:relative;">
+            <label for="buscador_producto">Producto:</label>
+            <input type="text" id="buscador_producto" autocomplete="off" placeholder="Buscar producto...">
+            <input type="hidden" id="producto_id">
+            <div id="sugerencias" class="sugerencias"></div>
           </div>
+
+          <div class="info">
+            <label>Tipo de venta:</label>
+            <select id="tipo_venta">
+              <option value="unidad">Unidad</option>
+              <option value="peso">Peso</option>
+            </select>
+          </div>
+
+          <div class="info" id="cantidad_unidad_div">
+            <label for="cantidad">Cantidad (unidades):</label>
+            <input type="number" id="cantidad" min="1" step="1">
+          </div>
+
+          <div class="info" id="cantidad_peso_div" style="display:none;">
+            <label for="cantidad_kg">Cantidad (Libras):</label>
+            <input type="number" id="cantidad_kg" min="0.01" step="0.01">
+          </div>
+
+          <div class="info">
+            <label>Precio:</label>
+            <input type="number" id="precio_unitario" min="0" step="0.01" disabled>
+          </div>
+
+          <div class="info">
+            <label>Subtotal:</label>
+            <input type="text" id="subtotal" readonly disabled>
+          </div>
+
+          <div class="info">
+            <button class="btnproducto" type="button" id="agregar_producto">Agregar Producto</button>
+          </div>
+
+          <!-- TABLA -->
           <div class="cuerpo-tabla">
             <div class="tabla-responsive">
               <table id="tabla-negocios" class="tabla">
                 <thead>
                   <tr>
-                    <th>Fecha</th>
-                    <th>Descripción</th>
-                    <th>Total</th>
+                    <th>Producto</th>
+                    <th>Tipo Venta</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                    <th>Acción</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- {% for i in Nego %}
-                <tr>
-                  <td>{{ i[0] }}</td>
-                  <td>{{ i[1] }}</td>
-                </tr>
-                {% endfor %} -->
+                  <!-- JS agregará filas aquí -->
                 </tbody>
               </table>
             </div>
           </div>
-        </div>
-      </div>
+
+          <!-- campos globales -->
+          <div class="info">
+            <label for="fev">Fecha de la venta: </label>
+            <input type="date" class="form-control" required id="fev" name="fev">
+          </div>
+
+          <div class="info">
+            <label for="totv">Total: </label>
+            <input type="number" class="form-control" id="totv" name="totv" readonly>
+          </div>
+
+          <button class="btnproducto" type="submit">Realizar Venta</button>
+        </section>
+      </form>
     </div>
+  </div>
 </div>
+{% endblock %}
 
-
-  {% endblock %}
-
-  {% block js %}
-  {% endblock %}
+{% block js %}
+<script src="{{ url_for('static', filename='js/ventas.js') }}"></script>
+{% endblock %}

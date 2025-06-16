@@ -12,10 +12,21 @@
 <div class="mascotas">
 
   <h2 class="menu">Servicios</h2>
+  <section class="menu-favoritos">
+     <div class="contenedor-productos">
+      {% for s in servi %}
+      <div class="producto">
+        
+      </div>
+      {% endfor %}
+
+     </div>
+  </section>
 
   <div class="form-container">
     <div class="form-box">
-      <a href="/agregarservicios"> <button class="btnagregar">Agregar Servicios</button></a>
+      <a href="/agregarservicio"> <button class="btnagregar">Agregar Servicios</button></a>
+      <a href=""> <button class="btnagregar">Realizar Servicio</button></a>
       <!-- TABLA -->
       <div class="contenedor-tabla">
         <div class="tabla-negocios">

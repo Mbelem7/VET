@@ -18,7 +18,7 @@
         <div class="info">
           <label for="nombrep">Nombre: </label>
           <input type="text" class="form-control" placeholder="Nombre del Empleado" required id="nombrep"
-            name="nombreemp" />
+            name="nombreemp" data-letras/>
         </div>
         <br>
         <div class="info">
@@ -41,4 +41,5 @@
 {% endblock %}
 
 {% block js %}
+<script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
 {% endblock %}

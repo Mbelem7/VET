@@ -30,8 +30,17 @@
         <img src="{{ url_for('static', filename=p[2].split('static/')[1]) }}" alt="{{ p[1] }}">
         <h3>{{ p[1] }}</h3>
         <p>{{ p[3] }}</p>
+        
+        {% if p[9] == 'unidad' %}
         <p><strong>Precio:</strong> C$ {{ p[4] }}</p>
-        <p><strong>Unidades:</strong> {{ p[5] }}</p>
+        <p><strong>Unidades:</strong> {{ p[6] }}</p>
+        {% else %}
+        <p><strong>Precio por unidad:</strong> C$ {{ p[4] }}</p>
+        <p><strong>Precio kg:</strong> C$ {{ p[5] }}</p>
+        <p><strong>Unidades:</strong> {{ p[6] }}</p>
+        <p><strong>Peso disponible:</strong> {{ p[8] }} kg</p>
+        {% endif %}
+        
         <a href="{{ url_for('editar_producto', idproducto=p[0]) }}">
           <button class="btnproducto">Editar</button>
         </a>
