@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Agregar Servicios</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="../static/styles/stylesindex.css">
+{% endblock %}
+
+{% block body %}
+<div class="mascotas">
+    <h2 class="menu">Realizar servicio</h2>
+
+    <form action="/realizarservicio" method="post">
+
+        <div class="form-container">
+            <div class="form-box">
+                <section class="formulario">
+                    <h3>Datos del Servicio</h3>
+
+                    <div class="info" style="position:relative;">
+                        <label for="buscador_mascota">Mascota:</label>
+                        <input type="text" id="buscador_mascota" autocomplete="off" placeholder="Buscar mascota...">
+                        <input type="hidden" id="mascota_id" name="mascota_id">
+                        <div id="sugerencias_mascota" class="sugerencias"></div>
+                    </div>
+
+                    <!-- Tabla de información de la mascota y propietario -->
+                    <div class="form-row" id="row-tabla-mascota" style="display:none;">
+                        <div class="form-input" style="width:100%;">
+                            <div class="cuerpo-tabla">
+                                <div class="tabla-responsive">
+                                    <table id="tabla_mascota" class="tabla">
+                                        <thead>
+                                            <tr>
+                                                <th>Mascota</th>
+                                                <th>Especie</th>
+                                                <th>Raza</th>
+                                                <th>Propietario</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- JS agregará la fila aquí -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <label for="servicio">Servicio:</label>
+                        <select class="form-control" name="servicio" id="servicio">
+                            <option value="" disabled selected>Escoge un servicio</option>
+                            {% for i in servic %}
+                            <option value="{{ i[0] }}">{{ i[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="info">
+                        <button class="btnproducto" type="button" id="agregar_servicio">Agregar Servicio</button>
+                    </div>
+
+                    <div class="cuerpo-tabla">
+                        <div class="tabla-responsive">
+                            <table id="tabla-negocios" class="tabla">
+                                <thead>
+                                    <tr>
+                                        <th>Servicio</th>
+                                        <th>Precio</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- JS agregará filas aquí -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <label for="fecs">Fecha del Servicio: </label>
+                        <input type="date" class="form-control" placeholder="Fecha del Servicio" required id="fecs"
+                            name="fecs">
+                    </div>
+
+                    <div class="info">
+                        <label for="tots">Total: </label>
+                        <input type="number" class="form-control" placeholder="Total del Servicio" id="tots"
+                            name="tots" readonly>
+                    </div>
+
+                    <br>
+                    <div class="botonesproducto">
+                        <input type="submit" value="Guardar" class="btnproducto">
+                        <a href="{{ url_for('servicios') }}" class="btnproducto">Cancelar</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="data-servicios" data-catalogo='{{ serviciosCatalogo | safe }}'></div>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
+<script src="{{ url_for('static', filename='js/servicio.js') }}"></script>
+<script>
+// Asegura que la columna Acción esté en la tabla de servicios (ya está en el template)
+// Ahora, asegúrate de que el JS agregue el botón eliminar en cada fila
+// Y que la especie se muestre correctamente en la tabla de mascota
+// Si no se muestra la especie, probablemente el JS no está usando el valor correcto del endpoint
+// Revisa el JS de servicio.js para que al seleccionar mascota, haga correctamente la petición a /api/mascota_especie/<id>
+// y coloque el valor en la tabla. Si necesitas ayuda con el JS, dime y lo reviso.
+</script>
+{% endblock %}

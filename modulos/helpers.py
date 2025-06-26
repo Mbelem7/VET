@@ -19,6 +19,8 @@ def login_required(f):
 
     return decorated_function
 
+
+
 #verifica si es administrador
 def admin_required(f):
     """
@@ -29,13 +31,16 @@ def admin_required(f):
 
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if "ADMIN" not in session.get("Roles"):
-            # Si el usuario no tiene el rol de ADMIN, redirigir a la página de inicio
+        roles = session.get("user_role") or []
+        if "db_owner" not in roles:
             return redirect("/")  # Redirigir si no tiene permiso
 
         return f(*args, **kwargs)
 
     return decorated_function
+
+
+
 
 #verifica si es veterinario
 def veterinario_required(f):
@@ -47,13 +52,36 @@ def veterinario_required(f):
 
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if "VETERINARIO" not in session.get("Roles"):
-            # Si el usuario no tiene el rol de ADMIN, redirigir a la página de inicio
+        print(session.get("user_role"))
+        roles = session.get("user_role") or []
+        if "Veterinario" not in roles and "db_owner" not in roles:
             return redirect("/")  # Redirigir si no tiene permiso
 
         return f(*args, **kwargs)
 
     return decorated_function
+
+
+
+
+def vetRec_required(f):
+    """
+    Decorate routes to require login.
+
+    https://flask.palletsprojects.com/en/latest/patterns/viewdecorators/
+    """
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        roles = session.get("user_role") or []
+        if ("Veterinario" not in roles and "Recepcionista" not in roles and "db_owner" not in roles):
+            return redirect("/")  # Redirigir si no tiene permiso
+
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
 
 #verifica si es recepcionista
 def recepcionista_required(f):
@@ -65,7 +93,8 @@ def recepcionista_required(f):
 
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if "RECEPCIONISTA" not in session.get("Roles"):
+        roles = session.get("user_role") or []
+        if "Recepcionista" not in roles:
             # Si el usuario no tiene el rol de ADMIN, redirigir a la página de inicio
             return redirect("/")  # Redirigir si no tiene permiso
 

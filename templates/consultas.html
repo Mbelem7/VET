@@ -12,7 +12,7 @@
 
 <div class="mascotas">
   <br>
-  
+
   <h2 class="menu">Consultas</h2>
   <div class="form-container">
     <div class="form-box">
@@ -28,23 +28,25 @@
               <table id="tabla-negocios" class="tabla">
                 <thead>
                   <tr>
+                    <th>Mascota</th>
+                    <th>Peso</th>
+                    <th>Edad</th>
                     <th>Fecha</th>
                     <th>Descripción</th>
-                    <th>Diagnostico</th>
-                    <th>Tratamiento</th>
-                    <th>Precio</th>
+                    <th>Total</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- {% for i in Nego %}
-                      <tr>
-                        <td>{{ i[0] }}</td>
-                        <td>{{ i[1] }}</td>
-                        <td>{{ i[2] }}</td>
-                        <td>{{ i[3] }}</td>
-                        <td>{{ i[4] }}</td>
-                      </tr>
-                      {% endfor %} -->
+                  {% for c in consultas %}
+                  <tr>
+                    <td>{{ c.mascota }}</td>
+                    <td>{{ c.peso }}</td>
+                    <td>{{ c.edad }}</td>
+                    <td>{{ c.fecha }}</td>
+                    <td>{{ c.descripcion }}</td>
+                    <td>C$ {{ c.total }}</td>
+                  </tr>
+                  {% endfor %}
                 </tbody>
               </table>
             </div>

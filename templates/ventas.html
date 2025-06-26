@@ -91,6 +91,40 @@
             <input type="number" class="form-control" id="totv" name="totv" readonly>
           </div>
 
+          <div id="buscador-persona-row" class="form-row">
+            <label for="buscador_persona">Buscar persona:</label>
+            <div class="form-input">
+              <input type="text" id="buscador_persona" placeholder="Buscar persona...">
+              <input type="hidden" id="persona_id" name="persona_id" required>
+              <div id="sugerencias_persona" class="sugerencias"></div>
+            </div>
+          </div>
+
+          <div class="form-row" id="row-tabla-persona">
+            <div class="form-input" style="width:100%;">
+              <div class="cuerpo-tabla">
+                <div class="tabla-responsive">
+                  <table id="tabla_persona" class="tabla">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Cédula</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Dirección</th>
+                        <th>Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- JS agregará la fila aquí -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <button class="btnproducto" type="submit">Realizar Venta</button>
         </section>
       </form>

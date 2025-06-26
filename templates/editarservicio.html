@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Editar Servicio</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/stylesindex.css') }}">
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="contenedor-formulario">
+    <div class="formulario-producto">
+        <form method="POST">
+            <div class="form-container">
+                <div class="form-box">
+                    <section class="formulario">
+                        <h2 class="titulo-form">Editar Servicio</h2>
+                        <div class="contenedorlabel">
+                            <div class="info">
+                                <label>Nombre:</label>
+                                <span>{{ servicio[1] }}</span>
+                            </div>
+
+                            <div class="info">
+                                <label>Descripción:</label>
+                                <span>{{ servicio[4] }}</span>
+                            </div>
+
+                            <div class="info">
+                                <label for="precio">Precio:</label>
+                                <input type="number" step="0.01" name="precio" id="precio" value="{{ servicio[3] }}"
+                                    required>
+                            </div>
+                            <div class="info">
+                                <label for="estado">Estado:</label>
+                                <select name="estado" id="estado" required>
+                                    <option value="" disabled>Estados</option>
+                                    <option value="activo" {% if servicio[5]=='activo' %}selected{% endif %}>Activo
+                                    </option>
+                                    <option value="inactivo" {% if servicio[5]=='inactivo' %}selected{% endif %}>
+                                        Inactivo
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="botones-form">
+                            <button type="submit" class="btnproducto">Guardar Cambios</button>
+                            <a href="/servicios"><button type="button" class="btnproducto">Cancelar</button></a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+
+{% endblock %}

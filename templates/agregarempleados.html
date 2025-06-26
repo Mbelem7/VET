@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block body %}
+<br>
 <div class="form-container">
     <div class="form-box">
                 <!-- DATOS DEL EMPLEADO -->
@@ -31,7 +32,8 @@
           <input type="text" class="form-control" placeholder="Rol del Empleado" required id="rolemp" name="rolemp" />
         </div>
             <div class="botonesproducto">
-              <input type="button" value="Agregar Empleado" id="agregar-empleado">
+              <input type="button" value="Agregar Empleado" class="btnproducto">
+              <a href="{{ url_for('empleados') }}" class="btnproducto">Cancelar</a>
             </div>
 
       </section>

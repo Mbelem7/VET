@@ -18,12 +18,16 @@
                 <!-- DATOS Nuevo producto -->
                 <section class="formulario">
                     <h3> Ingrese los datos del nuevo producto</h3>
+                    <div style="background:#e6f7e6; color:#1a4d1a; border:1px solid #b2d8b2; padding:10px; margin-bottom:10px; border-radius:5px;">
+                        <b>Importante:</b> Todos los valores de peso deben ser ingresados en <b>kilogramos (kg)</b>. No ingrese valores en libras.<br>
+                        Si su producto se vende por peso, registre el peso por unidad y la cantidad de unidades, y el <b>stock total en peso (kg) se calculará automáticamente</b>.
+                    </div>
                     <br>
                     <div class="contenedorlabel">
                         <div class="info">
                             <label for="nombrep">Nombre: </label>
                             <input type="text" class="form-control" placeholder="Nombres del producto" required
-                                id="nombrep" name="nombrep" data-letras/>
+                                id="nombrep" name="nombrep" />
                         </div>
                         <br>
                         <div class="upload-area" id="drop-area">
@@ -76,12 +80,14 @@
                             <label for="stockpesop">Stock total en peso (kg): </label>
                             <input type="number" class="form-control" placeholder="Stock en peso" id="stockpesop"
                                 name="stockpesop" min="0" step="0.01" readonly />
+                            <small style="color:#1a4d1a;">Este valor se calcula automáticamente.</small>
                         </div>
 
                         <br>
                         <div class="form-group">
                             <label for="categoria">Categoria:</label>
-                            <select class="form-control" name="categoria" id="categoria">
+                            <select class="form-control" name="categoria" id="categoria" required>
+                                <option value="" disabled selected>Categoría</option>
                                 {% for i in categ %}
                                 <option value="{{ i[0] }}">{{ i[1] }}</option>
                                 {% endfor %}
@@ -90,7 +96,8 @@
                     </div>
                     <br>
                     <div class="botonesproducto">
-                        <input type="submit" value="Guardar" id="agregar-mascota">
+                        <input type="submit" value="Guardar" class="btnproducto">
+                        <a href="{{ url_for('productos') }}" class="btnproducto">Cancelar</a>
                     </div>
                 </section>
             </div>
@@ -114,18 +121,29 @@
         const pesop = document.getElementById('pesop');
         const unidadesp = document.getElementById('unidadesp');
         const stockpesop = document.getElementById('stockpesop');
+        const precioUnitario = document.getElementById('precio_unitario');
 
         function actualizarCampos() {
             if (radioUnidad.checked) {
                 stockUnidadesDiv.style.display = '';
+                unidadesp.disabled = false;
+                unidadesp.required = true;
                 pesoPorUnidadDiv.style.display = 'none';
                 stockPesoDiv.style.display = 'none';
                 precioUnitarioDiv.style.display = 'none';
+                pesop.required = false;
+                stockpesop.required = false;
+                precioUnitario.required = false;
             } else {
                 stockUnidadesDiv.style.display = '';
+                unidadesp.disabled = false;
+                unidadesp.required = true;
                 pesoPorUnidadDiv.style.display = '';
                 stockPesoDiv.style.display = '';
                 precioUnitarioDiv.style.display = '';
+                pesop.required = true;
+                stockpesop.required = true;
+                precioUnitario.required = true;
             }
         }
 
@@ -143,19 +161,6 @@
         // Actualizar stock en peso si cambia unidades o peso por unidad
         pesop.addEventListener('input', calcularStockPeso);
         unidadesp.addEventListener('input', calcularStockPeso);
-
-        // Conversión automática de libras a kilos si se ingresa en libras
-        pesop.addEventListener('blur', function () {
-            const pesoIngresado = parseFloat(pesop.value);
-            if (pesoIngresado && pesoIngresado > 0) {
-                const confirmacion = confirm("¿El peso ingresado está en libras? Se convertirá a kilogramos automáticamente.");
-                if (confirmacion) {
-                    const pesoKg = (pesoIngresado / 2.20462).toFixed(3); // 1 kg ≈ 2.20462 lb
-                    pesop.value = pesoKg;
-                    calcularStockPeso();
-                }
-            }
-        });
 
         actualizarCampos();
     });

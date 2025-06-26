@@ -1,10 +1,11 @@
-from modulos.coneccion import BDconeccion
+from modulos.coneccion import *
 import pyodbc
 
-con = BDconeccion()
+con = ConnectionManager.get_connection()
 
 def insertarpersona(nombre, apellido, cedula, telefono, correo, direccion):
     try:
+        con = ConnectionManager.get_connection()
         cursor = con.cursor()
         cursor.execute("""
             INSERT INTO persona (nombre, apellido, cedula, telefono, correo, direccion)
@@ -23,6 +24,7 @@ def insertarpersona(nombre, apellido, cedula, telefono, correo, direccion):
         return None
 
 def obtener_id_persona(username):
+    con = ConnectionManager.get_connection()
     cursor = con.cursor()
     cursor.execute("SELECT PERSONA_IDU FROM USUARIOS WHERE USUARIO = ?", (username,))
     row = cursor.fetchone()

@@ -39,15 +39,21 @@
                     </div>
                     <div class="info">
                         <label>Propietario:</label>
-                        <select name="propietario_id" required>
-                            {% for p in propietarios %}
-                            <option value="{{ p[0] }}" {% if p[1]==mascota[5] %}selected{% endif %}>{{ p[1] }}</option>
-                            {% endfor %}
-                        </select>
+                        <br>
+                        <span>
+                            {{ mascota[5] }}<br>
+                            Cédula: {{ mascota[6] }}<br>
+                            Teléfono: {{ mascota[7] }}<br>
+                            Correo: {{ mascota[8] }}<br>
+                            Dirección: {{ mascota[9] }}
+                        </span>
                     </div>
                 </div>
                 <br>
-                <button class="btnproducto" type="submit">Guardar</button>
+                <div class="botonesproducto">
+                    <button class="btnproducto" type="submit">Guardar</button>
+                    <a href="{{ url_for('mascotas') }}" class="btnproducto">Cancelar</a>
+                </div>
             </form>
         </div>
     </div>

@@ -9,57 +9,41 @@
 {% endblock %}
 
 {% block body %}
-<div class="mascotas">
-
+<div class="bodyproductos">
   <h2 class="menu">Servicios</h2>
+
+  <div class="botonesproducto">
+    <a href="/agregarservicio"> <button class="btnproducto">Nuevo servicio</button></a>
+    <a href="/realizarservicio"> <button class="btnproducto">Realizar servicio</button></a>
+    <a href="/historialservicios"> <button class="btnproducto">Historial</button></a>
+  </div>
+
+  <br>
+
   <section class="menu-favoritos">
-     <div class="contenedor-productos">
+    <div class="contenedor-serv">
       {% for s in servi %}
-      <div class="producto">
-        
+      <div class="servicioss">
+
+        <div class="servicio-img">
+          <img src="{{ url_for('static', filename=s[2].split('static/')[1]) }}" alt="{{ s[1] }}">
+        </div>
+
+        <div class="servicio-info">
+          <h3>{{ s[1] }}</h3>
+          <p>{{ s[4] }}</p>
+          <p><strong>Precio:</strong> C$ {{ s[3] }}</p>
+
+          <a href="{{ url_for('editar_servicio', idservicio=s[0]) }}">
+            <button class="btnproducto">Editar</button>
+          </a>
+        </div>
+
       </div>
       {% endfor %}
-
-     </div>
+    </div>
   </section>
 
-  <div class="form-container">
-    <div class="form-box">
-      <a href="/agregarservicio"> <button class="btnagregar">Agregar Servicios</button></a>
-      <a href=""> <button class="btnagregar">Realizar Servicio</button></a>
-      <!-- TABLA -->
-      <div class="contenedor-tabla">
-        <div class="tabla-negocios">
-          <div class="encabezado-tabla">
-            <h4 class="titulo-tabla">Historial de servicios</h4>
-          </div>
-          <div class="cuerpo-tabla">
-            <div class="tabla-responsive">
-              <table id="tabla-negocios" class="tabla">
-                <thead>
-                  <tr>
-                    <th>Fecha</th>
-                    <th>Descripción</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- {% for i in Nego %}
-                <tr>
-                  <td>{{ i[0] }}</td>
-                  <td>{{ i[1] }}</td>
-                  <td>{{ i[2] }}</td>
-                </tr>
-                {% endfor %} -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
 </div>
 
 {% endblock %}
@@ -73,4 +57,5 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 
 <script src="../static/js/tablas.js"></script>
+
 {% endblock %}

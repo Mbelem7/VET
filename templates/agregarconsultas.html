@@ -12,55 +12,129 @@
 <div class="mascotas">
   <h2 class="menu">Nueva Consulta</h2>
   <br>
-  <div class="form-container">
-    <div class="form-box">
-      <!-- DATOS CONSULTA -->
-      <section class="formulario">
-        <h3> Datos de la Consulta</h3>
-        <br>
-        <div class="info">
-          <label for="fecc">Fecha: </label>
-          <input type="date" class="form-control" placeholder="Fecha de la Consulta" required id="fecc" name="fecc" />
+  <form action="/agregarconsultas" method="post" id="form-consulta" autocomplete="off">
+    <div class="form-container">
+      <div class="form-box">
+        <!-- DATOS CONSULTA -->
+        <section class="formulario">
+          <h3>Datos de la Consulta</h3>
+          <br>
+          <div class="form-row">
+            <label for="buscador_mascota">Mascota:</label>
+            <div class="form-input">
+              <input type="text" id="buscador_mascota" placeholder="Buscar mascota..." autocomplete="off" autocorrect="off" spellcheck="false" name="buscador_mascota_fake">
+              <input type="hidden" id="mascota_id" name="mascota_id">
+              <div id="sugerencias_mascota" class="sugerencias"></div>
+            </div>
+          </div>
+          <!-- Tabla de información de la mascota y propietario -->
+          <div class="form-row" id="row-tabla-mascota" style="display:none;">
+            <div class="form-input" style="width:100%;">
+              <div class="cuerpo-tabla">
+                <div class="tabla-responsive">
+                  <table id="tabla_mascota" class="tabla">
+                    <thead>
+                      <tr>
+                        <th>Mascota</th>
+                        <th>Edad</th>
+                        <th>Peso</th>
+                        <th>Especie</th>
+                        <th>Raza</th>
+                        <th>Propietario</th>
+                        <th>Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- JS agregará la fila aquí -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="fecc">Fecha:</label>
+            <div class="form-input">
+              <input type="date" id="fecc" name="fecc" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="dec">Descripción:</label>
+            <div class="form-input">
+              <input type="text" id="dec" name="dec" placeholder="Descripción de la Consulta" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="dic">Diagnóstico:</label>
+            <div class="form-input">
+              <input type="text" id="dic" name="dic" placeholder="Diagnóstico de la Consulta" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="tra">Tratamiento:</label>
+            <div class="form-input">
+              <input type="text" id="tra" name="tra" placeholder="Tratamiento de la Mascota" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="buscador_medicamento">Medicamento:</label>
+            <div class="form-input medicamento-flex">
+              <input type="text" id="buscador_medicamento" placeholder="Buscar medicamento...">
+              <input type="hidden" id="medicamento_id">
+              <input type="number" id="dosis" placeholder="Dosis">
+              <input type="number" id="duracion" placeholder="Duración">
+              <button type="button" id="agregar_medicamento">Agregar</button>
+            </div>
+            <div id="sugerencias_medicamento" class="sugerencias"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-input" style="width:100%;">
+              <div class="cuerpo-tabla">
+                <div class="tabla-responsive">
+                  <table id="tabla_medicamentos" class="tabla">
+                    <thead>
+                      <tr>
+                        <th>Medicamento</th>
+                        <th>Dosis</th>
+                        <th>Duración</th>
+                        <th>Precio</th>
+                        <th>Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- JS agregará filas aquí -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="prec">Precio:</label>
+            <div class="form-input">
+              <input type="number" id="prec" name="prec" placeholder="Precio de la Consulta" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="totalc">Total:</label>
+            <div class="form-input">
+              <input type="number" id="totalc" name="totalc" placeholder="Total" readonly>
+            </div>
+          </div>
+        </section>
+        <br><br>
+        <div class="botonesproducto">
+          <input class="btnproducto" type="submit" value="Guardar" >
+          <a href="{{ url_for('consultas') }}" class="btnproducto">Cancelar</a>
         </div>
-        <br>
-        <div class="info">
-          <label for="dec">Descripción: </label>
-          <input type="text" class="form-control" placeholder="Descripción de la Consulta" required id="dec"
-            name="dec" />
-        </div>
-        <br>
-        <div class="info">
-          <label for="dic">Diagnóstico: </label>
-          <input type="text" class="form-control" placeholder="Diagnóstico de la Consulta" required id="dic"
-            name="dic" />
-        </div>
-        <br>
-        <div class="info">
-          <label for="tra">Tratamiento: </label>
-          <input type="text" class="form-control" placeholder="Tratamiento de la Mascota" required id="tra"
-            name="tra"  />
-        </div>
-        <br>
-        <div class="info">
-          <label for="prec">Precio: </label>
-          <input type="number" class="form-control" placeholder="Precio de la Consulta" required id="prec" name="prec" />
-        </div>
-      </section>
-
-      <br>
-      <br>
-
-      <div class="botonesproducto">
-        <input type="button" value="Guardar" id="agregar-mascota">
       </div>
     </div>
-
-  </div>
-
+  </form>
 </div>
-
 {% endblock %}
 
 {% block js %}
 <script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
+<script src="{{ url_for('static', filename='js/consultas.js') }}"></script>
+<script src="{{ url_for('static', filename='js/medicamento.js') }}"></script>
 {% endblock %}

@@ -15,8 +15,8 @@
   <img class="fotomascotas" src="../static/assets/img/mascotasfoto.png" alt="">
   <div class="form-container">
     <div class="form-box">
-      <a href="/agregarmascotas"> <button class="btnagregar">Agregar Mascota</button></a>
       <a href="/agregarpropietario"> <button class="btnagregar">Agregar Propietario</button></a>
+      <a href="/agregarmascotas"> <button class="btnagregar">Agregar Mascota</button></a>
       <br>
       <!-- TABLA -->
       <div class="contenedor-tabla">
@@ -59,7 +59,7 @@
                     <td>{{ i[9] }}</td>
                     <td>{{ i[10] }}</td>
                     <td>
-                      <a href="{{ url_for('editar_mascota', idmascota=i[11]) }}" class="btn-editar">Editar</a>
+                      <a href="{{ url_for('editar_mascota', idmascota=i[11]) }}" class="btnproducto">Editar</a>
                     </td>
                   </tr>
                   {% endfor %}

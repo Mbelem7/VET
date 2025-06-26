@@ -132,16 +132,13 @@ document.addEventListener('DOMContentLoaded', function () {
       <td>${nombre}<input type="hidden" name="producto_id" value="${productoId}"></td>
       <td>${tipoVenta}<input type="hidden" name="tipo_venta" value="${tipoVenta}"></td>
       <td>
-        ${tipoVenta === 'unidad' ? cantidad : '-'}
+        ${tipoVenta === 'unidad' ? cantidad : cantidadKg}
         <input type="hidden" name="cantidad" value="${cantidad}">
-      </td>
-      <td>
-        ${tipoVenta === 'peso' ? cantidadKg : '-'}
         <input type="hidden" name="cantidad_kg" value="${cantidadKg}">
       </td>
       <td>${precioUnitario.toFixed(2)}<input type="hidden" name="precio_unitario" value="${precioUnitario.toFixed(2)}"></td>
       <td class="subtotal">${subtotal.toFixed(2)}<input type="hidden" name="subtotal" value="${subtotal.toFixed(2)}"></td>
-      <td><button type="button" class="eliminar_producto">Eliminar</button></td>
+      <td><button type="button" class="eliminar_producto btnproducto">Eliminar</button></td>
     `;
     tablaProductos.appendChild(fila);
 
@@ -170,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     totalInput.value = total.toFixed(2);
   }
+  
 
   // Impedir la entrada de números negativos y caracteres no deseados en los inputs numéricos
   function impedirNegativosYE(inputElement) {
@@ -196,7 +194,60 @@ document.addEventListener('DOMContentLoaded', function () {
   impedirNegativosYE(document.getElementById('cantidad'));
   impedirNegativosYE(document.getElementById('cantidad_kg'));
 
+  // --- BUSCADOR Y SELECCIÓN DE PERSONA PARA VENTA ---
+  const buscadorPersona = document.getElementById('buscador_persona');
+  const sugerenciasPersona = document.getElementById('sugerencias_persona');
+  const personaIdInput = document.getElementById('persona_id');
+  const tablaPersona = document.getElementById('tabla_persona').querySelector('tbody');
 
+  buscadorPersona.addEventListener('input', function () {
+    const query = buscadorPersona.value.trim();
+    if (!query) {
+      sugerenciasPersona.innerHTML = '';
+      sugerenciasPersona.style.display = 'none';
+      return;
+    }
+    fetch(`/buscar_persona?q=${encodeURIComponent(query)}`)
+      .then(res => res.json())
+      .then(data => {
+        sugerenciasPersona.innerHTML = '';
+        sugerenciasPersona.style.display = data.length ? 'block' : 'none';
+        data.forEach(per => {
+          const div = document.createElement('div');
+          div.textContent = `${per.nombre} ${per.apellido} (${per.correo})`;
+          div.classList.add('sugerencia-item');
+          div.addEventListener('mousedown', function () {
+            // Llenar el campo persona_id y la tabla
+            personaIdInput.value = per.id;
+            buscadorPersona.value = `${per.nombre} ${per.apellido}`;
+            sugerenciasPersona.innerHTML = '';
+            sugerenciasPersona.style.display = 'none';
+            // Mostrar datos en la tabla
+            tablaPersona.innerHTML = `
+              <tr>
+                <td>${per.nombre}</td>
+                <td>${per.apellido}</td>
+                <td>${per.cedula || ''}</td>
+                <td>${per.telefono || ''}</td>
+                <td>${per.correo}</td>
+                <td>${per.direccion || ''}</td>
+                <td><button type="button" class="eliminar_persona btnproducto">Quitar</button></td>
+              </tr>
+            `;
+          });
+          sugerenciasPersona.appendChild(div);
+        });
+      });
+  });
+
+  // Permitir quitar persona seleccionada
+  tablaPersona.parentElement.addEventListener('click', function (e) {
+    if (e.target.classList.contains('eliminar_persona')) {
+      personaIdInput.value = '';
+      buscadorPersona.value = '';
+      tablaPersona.innerHTML = '';
+    }
+  });
 
   actualizarTipoVenta();
 });

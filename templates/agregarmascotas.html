@@ -21,40 +21,100 @@
         <section class="formulario">
           <h3>Ingrese los Datos de la Mascota</h3>
           <br>
-          <div class="info">
-            <label for="nombrem">Nombre: </label>
-            <input type="text" class="form-control" placeholder="Nombres de la mascota" required id="nombrem"
-              name="nombrem" data-letras/>
+
+          <!-- PROPIETARIO YA REGISTRADO -->
+          <di class="form-row">
+            <label>
+              <input type="checkbox" id="check-propietario-registrado">
+              Propietario ya registrado
+            </label>
+          </di>
+          
+          <div id="buscador-propietario-row" class="form-row" style="display:none;">
+            <label for="buscador_propietario">Buscar propietario:</label>
+            <div class="form-input">
+              <input type="text" id="buscador_propietario" placeholder="Buscar propietario...">
+              <input type="hidden" id="propietario_id" name="propietario_id">
+              <div id="sugerencias_propietario" class="sugerencias"></div>
+            </div>
           </div>
 
-          <div class="info">
-            <label for="edadm">Edad: </label>
-            <input type="number" class="form-control" placeholder="Edad de la mascota" required id="edadm" name="edadm" />
+          <div class="form-row" id="row-tabla-propietario" style="display:none;">
+            <div class="form-input" style="width:100%;">
+              <div class="cuerpo-tabla">
+                <div class="tabla-responsive">
+                  <table id="tabla_propietario" class="tabla">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Cédula</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Dirección</th>
+                        <th>Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- JS agregará la fila aquí -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="info">
-            <label for="pesom">Peso: </label>
-            <input type="number" class="form-control" placeholder="Peso de la mascota" required id="pesom" name="pesom" />
+          <!-- FORMULARIO DE MASCOTA -->
+          <div class="form-row">
+            <label for="nombrem">Nombre:</label>
+            <div class="form-input">
+              <input type="text" class="form-control" placeholder="Nombres de la mascota" required id="nombrem"
+                name="nombrem" data-letras />
+            </div>
           </div>
 
-          <div class="info">
-            <label for="sexom">Sexo: </label>
-            <input type="text" class="form-control" placeholder="Sexo de la mascota" required id="sexom" name="sexom" />
+          <div class="form-row">
+            <label for="edadm">Edad:</label>
+            <div class="form-input">
+              <input type="number" class="form-control" placeholder="Edad de la mascota" required id="edadm"
+                name="edadm" />
+            </div>
           </div>
 
-          <div class="info">
+          <div class="form-row">
+            <label for="pesom">Peso:</label>
+            <div class="form-input">
+              <input type="number" class="form-control" placeholder="Peso de la mascota" required id="pesom"
+                name="pesom" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="sexom">Sexo:</label>
+            <div class="form-input">
+              <input type="text" class="form-control" placeholder="Sexo de la mascota" required id="sexom"
+                name="sexom" />
+            </div>
+          </div>
+
+          <div class="form-row">
             <label for="especiem">Especie:</label>
-            <select class="form-control" name="especiem" id="especiem">
-              {% for i in espe %}
-              <option value="{{ i[0] }}">{{ i[1] }}</option>
-              {% endfor %}
-            </select>
+            <div class="form-input">
+              <select class="form-control" name="especiem" id="especiem" required>
+                <option value="" disabled selected>Seleccione una especie</option>
+                {% for i in espe %}
+                <option value="{{ i[0] }}">{{ i[1] }}</option>
+                {% endfor %}
+              </select>
+            </div>
           </div>
 
-          <div class="info">
+          <div class="form-row">
             <label for="razam">Raza:</label>
-            <select name="razam" id="razam" class="form-control" required>
-            </select>
+            <div class="form-input">
+              <select name="razam" id="razam" class="form-control" required>
+              </select>
+            </div>
           </div>
 
 
@@ -62,8 +122,8 @@
           <br>
 
           <div class="botonesproducto">
-            <input type="submit" value="Guardar" id="agregar-mascota">
-            <button class="btn btn-danger">Cancelar</button>
+            <input type="submit" value="Guardar" class="btnproducto">
+            <a href="/mascotas"><button type="button" class="btnproducto">Cancelar</button></a>
           </div>
 
         </section>

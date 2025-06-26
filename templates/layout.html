@@ -16,22 +16,32 @@
 <body>
     <!-- navbar -->
     <header class="header">
-        <!-- <div class="logo">
-            <img src="../static/assets/img/logovet.png" alt="">
-        </div> -->
         <div class="logo">
             <img src="{{ url_for('static', filename='assets/img/logo.png') }}" alt="Logo">
-            <a href="#" id="nombre">Agro-Veterinaria Genesis</a>
+            <a href="/" id="nombre">Agro-Veterinaria Genesis</a>
         </div>
 
         <nav>
             <ul class="nav-links">
-                <li> <a href="#">pagina 1</a></li>
-                <li> <a href="#">pagina 2</a></li>
-                <li> <a href="#">pagina 3</a></li>
+                <li><a href="#">pagina 1</a></li>
+                <li><a href="#">pagina 2</a></li>
+                <li><a href="#">pagina 3</a></li>
+                <li>
+                    <a href="/logout" class="btn logout-btn">
+                        <button>Cerrar sesión</button>
+                    </a>
+                </li>
             </ul>
         </nav>
-        <a href="/logout" class="btn"> <button>Cerrar sesion</button></a>
+
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label for="nav-toggle" class="nav-toggle-label">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
     </header>
     <!-- fin navbar -->
     {% block body %}

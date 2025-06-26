@@ -1,9 +1,10 @@
-from modulos.coneccion import BDconeccion
+from modulos.coneccion import *
 import pyodbc
 
-con = BDconeccion()
+con = ConnectionManager.get_connection()
 
 def mostrarcategoriasp():
+    con = ConnectionManager.get_connection()
     cursor = con.cursor()
     cursor.execute ("SELECT id_tipocliente, tipocliente FROM tipo_cliente")
     categoriap = cursor.fetchall()

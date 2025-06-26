@@ -19,57 +19,90 @@
         <section class="formulario">
           <h3>Ingrese los Datos del Propietario</h3>
           <br>
-          <div class="info">
+
+          <div class="form-row">
             <label for="nombrep">Nombre: </label>
-            <input type="text" class="form-control" placeholder="Nombre del Propietario" required id="nombrep" name="nombrep" data-letras/>
+            <div class="form-input">
+              <input type="text" class="form-control" placeholder="Nombre del Propietario" required id="nombrep"
+                name="nombrep" data-letras />
+            </div>
           </div>
-          <div class="info">
+
+          <div class="form-row">
             <label for="apellidop">Apellido: </label>
-            <input type="text" class="form-control" placeholder="Apellido del Propietario" required id="apellidop" name="apellidop" data-letras/>
+            <div class="form-input">
+              <input type="text" class="form-control" placeholder="Apellido del Propietario" required id="apellidop"
+                name="apellidop" data-letras />
+            </div>
           </div>
-          <div class="info">
+
+          <div class="form-row">
             <label for="cedp">Cédula: </label>
-            <input type="text" class="form-control" placeholder="Cédula del Propietario" required id="cedp" name="cedp" />
+            <div class="form-input">
+              <input type="text" class="form-control" placeholder="Cédula del Propietario" required id="cedp"
+                name="cedp" />
+            </div>
           </div>
-          <div class="info">
+
+          <div class="form-row">
             <label for="telp">Teléfono: </label>
-            <input type="number" class="form-control" placeholder="Teléfono del Propietario" required id="telp" name="telp" maxlength="8" />
+            <div class="form-input">
+              <input type="number" class="form-control" placeholder="Teléfono del Propietario" required id="telp"
+                name="telp" maxlength="8" />
+            </div>
           </div>
-          <div class="info">
+
+          <div class="form-row">
             <label for="corp">Correo: </label>
-            <input type="email" class="form-control" placeholder="Correo del Propietario" required id="corp" name="corp" />
+            <div class="form-input">
+              <input type="email" class="form-control" placeholder="Correo del Propietario" required id="corp"
+                name="corp" />
+            </div>
           </div>
-          <div class="info">
+
+          <div class="form-row">
             <label for="dirp">Dirección: </label>
-            <input type="text" class="form-control" placeholder="Dirección del Propietario" required id="dirp" name="dirp" />
+            <div class="form-input">
+              <input type="text" class="form-control" placeholder="Dirección del Propietario" required id="dirp"
+                name="dirp" />
+            </div>
           </div>
-          <div class="info">
+
+          <div class="form-row">
             <label for="estadop">Estado: </label>
-            <select class="form-control" id="estadop" name="estadop" required>
-              <option value="Activo">Activo</option>
-              <option value="Inactivo">Inactivo</option>
-            </select>
+            <div class="form-input">
+              <select class="form-control" id="estadop" name="estadop" required>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </div>
           </div>
-          <div class="info">
+
+          <div class="form-row">
             <label for="tipop">Tipo:</label>
-            <select class="form-control" name="tipop" id="tipop">
-              {% for i in categ %}
-              <option value="{{ i[0] }}">{{ i[1] }}</option>
-              {% endfor %}
-            </select>
+            <div class="form-input">
+              <select class="form-control" name="tipop" id="tipop">
+                {% for i in categ %}
+                <option value="{{ i[0] }}">{{ i[1] }}</option>
+                {% endfor %}
+              </select>
+            </div>
           </div>
-          <div class="info">
-            <label for="mascotap">Mascota:</label>
-            <select name="mascotap" id="mascotap" required>
-              {% for m in mascot %}
-              <option value="{{ m[0] }}">{{ m[1] }}</option>
+
+          {% if errores %}
+          <div class="alert alert-danger">
+            <ul>
+              {% for error in errores %}
+              <li>{{ error }}</li>
               {% endfor %}
-            </select>
+            </ul>
           </div>
+          {% endif %}
+
           <br><br>
           <div class="botonesproducto">
-            <input type="submit" value="Guardar" id="agregar-mascota">
-            <button type="button" class="btn btn-danger" onclick="window.history.back();">Cancelar</button>
+            <input type="submit" value="Guardar" class="btnproducto">
+            <a href="{{ url_for('agregarpropietario') }}" class="btnproducto">Cancelar</a>
           </div>
         </section>
         <br>
