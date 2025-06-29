@@ -15,8 +15,14 @@
   <img class="fotomascotas" src="../static/assets/img/mascotasfoto.png" alt="">
   <div class="form-container">
     <div class="form-box">
-      <a href="/agregarpropietario"> <button class="btnagregar">Agregar Propietario</button></a>
-      <a href="/agregarmascotas"> <button class="btnagregar">Agregar Mascota</button></a>
+      <a href="/agregarpropietario"> <button class="btnproducto">Agregar Propietario</button></a>
+      <a href="/agregarmascotas"> <button class="btnproducto">Agregar Mascota</button></a>
+      <form action="{{ url_for('reporte_mascotas_pdf') }}" method="get" style="display:inline;">
+          <button class="btnproducto" type="submit">Reporte en PDF</button>
+      </form>
+      <a href="https://wa.me/?text={{ mensaje_whatsapp|urlencode }}" target="_blank">
+    <button class="btnproducto" type="button">Reporte por WhatsApp</button>
+      </a>
       <br>
       <!-- TABLA -->
       <div class="contenedor-tabla">

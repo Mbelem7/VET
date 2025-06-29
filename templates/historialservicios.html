@@ -12,7 +12,15 @@
 <div class="bodyproductos">
 
     <h2 class="menu">Historial de Servcios</h2>
+    <div>
+        <form action="{{ url_for('reporte_servicios_pdf') }}" method="get" style="display:inline;">
+            <button type="submit" class="btnproducto">Descargar PDF</button>
+        </form>
 
+        <a href="https://wa.me/?text={{ mensaje__whatsapp }}" target="_blank">
+            <button class="btnproducto">Enviar por WhatsApp</button>
+        </a>
+    </div>
     <div class="form-container">
         <div class="form-box">
             <div class="contenedor-tabla">

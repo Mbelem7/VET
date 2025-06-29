@@ -4,6 +4,7 @@ class ConnectionManager:
     _user = None
     _password = None
     _connection = None
+    _last_error = None
 
     @classmethod
     def set_credentials(cls, user, password):
@@ -32,6 +33,10 @@ class ConnectionManager:
         except pyodbc.Error as e:
             print("Error al conectar con la base de datos:", e)
             return None
+        
+    @classmethod
+    def get_last_error(cls):  # <- NUEVO
+        return cls._last_error
 
     @classmethod
     def close_connection(cls):

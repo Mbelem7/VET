@@ -1,6 +1,6 @@
 import os
 from werkzeug.utils import secure_filename
-from flask import Flask, render_template, request, redirect, session, jsonify, redirect, url_for
+from flask import Flask, render_template, request, redirect, session, jsonify, redirect, url_for, send_file
 from modulos.helpers import *
 from modulos.usuarios import buscarUsuario, rolesPorUsuario
 from modulos.razas import  *
@@ -15,6 +15,13 @@ from modulos.servicios import *
 from modulos.consultas import *
 from modulos.coneccion import *
 from flask_session import Session
+import io
+import pandas as pd
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.lib.pagesizes import A4, letter, landscape
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+import urllib.parse
 import json
 
 
@@ -48,7 +55,27 @@ def login():
         # Intenta obtener la conexión con esas credenciales
         con = ConnectionManager.get_connection()
         if not con:
-            return render_template('login.html', error='Usuario o contraseña incorrectos.')
+            error_msg = ConnectionManager.get_last_error()
+            error_msg = error_msg.lower() if error_msg else ""
+        
+            # Depuración: mostrar el mensaje real de error en consola
+            print(f"[DEBUG] Mensaje de error de conexión: '{error_msg}'")
+            # Convertir el error a string para asegurar búsquedas correctas
+            error_str = str(error_msg).lower() if error_msg else ""
+            # Bloqueo de cuenta
+            if "locked out" in error_str:
+                mensaje = "Tu cuenta ha sido bloqueada por múltiples intentos fallidos. Intenta más tarde o contacta al administrador."
+            # Errores de autenticación comunes (contraseña/usuario incorrectos)
+            elif any(x in error_str for x in [
+                "login failed", "error de inicio de sesión", "authentication failed", "usuario no válido", "18456"
+            ]) or error_str.strip() == "":
+                mensaje = "Usuario o contraseña incorrectos."
+            elif "faltan credenciales" in error_str:
+                mensaje = "Debe ingresar usuario y contraseña."
+            else:
+                mensaje = f"Error al conectar con la base de datos: {error_msg}"
+
+            return render_template('login.html', error=mensaje)
 
         # Si la conexión fue exitosa, obtiene los roles usando esa conexión
         try:
@@ -931,6 +958,210 @@ def buscar_persona():
         ]
         cursor.close()
     return jsonify(personas)
+
+
+#########################################################################
+# REPORTES
+@app.route('/reporte_mascotas_pdf')
+def reporte_mascotas_pdf():
+    mascotas = mostrarmacota()
+    columnas = [
+        "Nombre", "Edad", "Peso", "Sexo", "Raza", "Propietario",
+        "Cédula", "Teléfono", "Correo", "Dirección", "Estado"
+    ]
+
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
+    data = [columnas] + [list(m[:-1]) for m in mascotas]  # Quitar el ID para el PDF
+    styles = getSampleStyleSheet()
+
+    # Crear el título del reporte
+    titulo = Paragraph("Reporte de Mascotas", styles['Title'])
+    espacio = Spacer(1, 12)
+    table = Table(data)
+
+    style = TableStyle([
+        ('FONTSIZE', (0, 0), (-1, -1), 6),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR',(0,0),(-1,0),colors.whitesmoke),
+        ('ALIGN',(0,0),(-1,-1),'CENTER'),
+        ('GRID', (0,0), (-1,-1), 1, colors.black),
+    ])
+    table.setStyle(style)
+
+    elements = [titulo, espacio, table]
+    doc.build(elements)
+
+    buffer.seek(0)
+    return send_file(buffer, as_attachment=True, download_name="reporte_mascotas.pdf", mimetype='application/pdf')
+
+
+@app.context_processor
+def inject_mensaje_whatsapp():
+    try:
+        con = ConnectionManager.get_connection()
+        if con is None:
+            raise Exception("No se pudo obtener la conexión a la base de datos")
+        cursor = con.cursor()
+        cursor.execute('SELECT nombre_mascota, edad, sexo, raza FROM mascotas_vista LIMIT 5')
+        mascotas = cursor.fetchall()
+        cursor.close()
+        con.close()
+    except Exception as e:
+        print("Error al obtener mascotas:", e)
+        mascotas = []
+
+    mensaje = " Reporte de mascotas:\n"
+    for m in mascotas:
+        mensaje += f"- {m[0]}, {m[1]} años, {m[2]}, raza {m[3]}\n"
+    return dict(mensaje_whatsapp=mensaje)
+
+
+@app.route('/reporte_ventas_pdf')
+def reporte_ventas_pdf():
+    ventas = mostrar_ventas()
+    columnas = [
+        "ID Venta", "Fecha", "Nombre", "Apellido", "Producto",
+        "Cantidad", "Tipo Venta", "Precio", "Total"
+    ]
+
+    # Generar PDF en memoria
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
+    styles = getSampleStyleSheet()
+
+    # Crear el título del reporte
+    titulo = Paragraph("Reporte de Ventas", styles['Title'])
+    espacio = Spacer(1, 12)
+    # Armar datos para la tabla, primera fila columnas + datos ventas
+    data = [columnas] + [list(map(str, v)) for v in ventas]
+
+    table = Table(data)
+
+    style = TableStyle([
+        ('FONTSIZE', (0, 0), (-1, -1), 6),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR',(0,0),(-1,0),colors.whitesmoke),
+        ('ALIGN',(0,0),(-1,-1),'CENTER'),
+        ('GRID', (0,0), (-1,-1), 1, colors.black),
+    ])
+    table.setStyle(style)
+
+    elements = [titulo, espacio, table]
+    doc.build(elements)
+
+    buffer.seek(0)
+    return send_file(buffer, as_attachment=True, download_name="reporte_ventas.pdf", mimetype='application/pdf')
+
+# Context processor para generar mensaje de WhatsApp con resumen de ventas recientes
+@app.context_processor
+def inject_mensaje_ventas_whatsapp():
+    try:
+        ventas = mostrar_ventas()
+    except Exception as e:
+        ventas = []
+
+    mensaje = "🛒 Últimas ventas:\n"
+    for v in ventas[:5]:  # solo 5 últimas para no saturar
+        mensaje += f"- {v[1]}: {v[4]} x {v[5]} ({v[6]}), Total: {v[8]}\n"
+
+    return dict(mensaje_ventas_whatsapp=mensaje)
+
+
+@app.route('/reporte_servicios_pdf')
+def reporte_servicios_pdf():
+    servicios = mostrar_servicios()  # Usa tu función existente
+    columnas = ["Mascota", "Fecha", "Servicio", "Descripción", "Total"]
+
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
+
+    # Convertir todos los datos a string para evitar errores en ReportLab
+    data = [columnas] + [list(map(str, s)) for s in servicios]
+    styles = getSampleStyleSheet()
+
+    # Crear el título del reporte
+    titulo = Paragraph("Reporte de Servicios", styles['Title'])
+    espacio = Spacer(1, 12)
+    table = Table(data)
+
+    style = TableStyle([
+        ('FONTSIZE', (0, 0), (-1, -1), 6),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR',(0,0),(-1,0),colors.whitesmoke),
+        ('ALIGN',(0,0),(-1,-1),'CENTER'),
+        ('GRID', (0,0), (-1,-1), 1, colors.black),
+    ])
+    table.setStyle(style)
+
+    elements = [titulo, espacio, table]
+    doc.build(elements)
+
+    buffer.seek(0)
+    return send_file(buffer, as_attachment=True, download_name="reporte_servicios.pdf", mimetype='application/pdf')
+
+@app.context_processor
+def inject_mensaje_servicios_whatsapp():
+    try:
+        servicios = mostrar_servicios()
+    except Exception:
+        servicios = []
+
+    mensaje = "🛎️ Últimos servicios realizados:\n"
+    for s in servicios[:5]:  # Mostrar solo los últimos 5 servicios
+        mensaje += f"- {s[1]}: {s[2]} para {s[0]}, Total: {s[4]}\n"
+
+    return dict(mensaje_servicios_whatsapp=mensaje)
+
+@app.route('/reporte_consultas_pdf')
+def reporte_consultas_pdf():
+    consultas = mostrar_consultas()
+    columnas = [
+        "Mascota", "Peso", "Edad", "Fecha", "Descripcion", "Total"
+    ]
+
+    buffer = io.BytesIO()
+    columnas = ['Mascota', 'Peso', 'Edad', 'Fecha', 'Descripción', 'Total']
+    data = [columnas] + [
+        [c['mascota'], c['peso'], c['edad'], c['fecha'], c['descripcion'], f"C$ {c['total']}"]
+        for c in consultas
+    ]
+    doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
+    styles = getSampleStyleSheet()
+
+    # Crear el título del reporte
+    titulo = Paragraph("Reporte de Consultas", styles['Title'])
+    espacio = Spacer(1, 12)
+    table = Table(data)
+
+    style = TableStyle([
+        ('FONTSIZE', (0, 0), (-1, -1), 6),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR',(0,0),(-1,0),colors.whitesmoke),
+        ('ALIGN',(0,0),(-1,-1),'CENTER'),
+        ('GRID', (0,0), (-1,-1), 1, colors.black),
+    ])
+    table.setStyle(style)
+
+    elements = [titulo, espacio, table]
+    doc.build(elements)
+
+    buffer.seek(0)
+    return send_file(buffer, as_attachment=True, download_name="reporte_consultas.pdf", mimetype='application/pdf')
+
+
+@app.context_processor
+def inject_mensaje_consultas_whatsapp():
+    try:
+        consultas = mostrar_consultas()
+    except Exception:
+        consultas = []
+
+    mensaje = "🛎️ Últimas consultas realizadas:\n"
+    for s in consultas[:5]:  # Mostrar solo las últimas 5
+        mensaje += f"- {s['fecha']}: {s['descripcion']} para {s['mascota']}, Total: C$ {s['total']}\n"
+
+    return dict(mensaje_consultas_whatsapp=mensaje)
 
 #HISTORIAL DE VENTAS
 @app.route('/historialventas')

@@ -14,9 +14,17 @@
   <br>
 
   <h2 class="menu">Consultas</h2>
+
   <div class="form-container">
     <div class="form-box">
-      <a href="/agregarconsultas"> <button class="btnagregar">Agregar Consultas</button></a>
+      <a href="/agregarconsultas"> <button class="btnproducto">Agregar Consultas</button></a>
+      <form action="{{ url_for('reporte_consultas_pdf') }}" method="get" style="display:inline;">
+            <button type="submit" class="btnproducto">Descargar PDF</button>
+        </form>
+
+        <a href="https://wa.me/?text={{ mensaje__whatsapp }}" target="_blank">
+            <button class="btnproducto">Enviar por WhatsApp</button>
+        </a>
 
       <div class="contenedor-tabla">
         <div class="tabla-negocios">
