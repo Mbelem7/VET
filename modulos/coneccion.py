@@ -22,7 +22,7 @@ class ConnectionManager:
         try:
             cnxn_str = (
                 "Driver={SQL Server};"
-                "Server=DESKTOP-EEVISNL\\SQLEXPRESS;"
+                "Server=servidorbelen.database.windows.net"
                 "Database=genesis;"
                 f"UID={cls._user};"
                 f"PWD={cls._password};"
