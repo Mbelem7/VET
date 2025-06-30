@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="../static/styles/stylesindex.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     {% block title %} {% endblock %}
-
     {% block css %} {% endblock %}
-
 </head>
 
 <body>
@@ -21,20 +19,7 @@
             <a href="/" id="nombre">Agro-Veterinaria Genesis</a>
         </div>
 
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#">pagina 1</a></li>
-                <li><a href="#">pagina 2</a></li>
-                <li><a href="#">pagina 3</a></li>
-                <li>
-                    <a href="/logout" class="btn logout-btn">
-                        <button>Cerrar sesión</button>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
-
+        <!-- Orden correcto: input + label + nav -->
         <input type="checkbox" id="nav-toggle" class="nav-toggle" />
         <label for="nav-toggle" class="nav-toggle-label">
             <span></span>
@@ -42,8 +27,21 @@
             <span></span>
         </label>
 
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">Página 1</a></li>
+                <li><a href="#">Página 2</a></li>
+                <li><a href="#">Página 3</a></li>
+                <li>
+                    <!-- Este botón puede ir dentro si querés -->
+                    <a href="/logout" class="btn logout-btn">
+                        <button>Cerrar sesión</button>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </header>
-    <!-- fin navbar -->
+    <!-- Contenido dinámico -->
     {% block body %}
     {% endblock %}
 
