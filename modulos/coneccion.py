@@ -21,12 +21,13 @@ class ConnectionManager:
             return None
         try:
             cnxn_str = (
-                "Driver={SQL Server};"
-                "Server=servidorbelen.database.windows.net"
-                "Database=genesis;"
+                "Driver={ODBC Driver 17 for SQL Server};"
+                "Server=servidorbelen.database.windows.net;"
+                "Database=genvet;"
                 f"UID={cls._user};"
                 f"PWD={cls._password};"
-                "Trusted_Connection=no;"
+                "Encrypt=yes;"
+                "TrustServerCertificate=no;"
             )
             cls._connection = pyodbc.connect(cnxn_str)
             return cls._connection
