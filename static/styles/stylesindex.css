@@ -239,7 +239,7 @@ body {
 
 /* titulo */
 .menu {
-    font-size: 5.5rem;
+    font-size: 2.5rem;
     color: #809250;
     text-align: center;
     margin-bottom: 18px;
@@ -345,6 +345,9 @@ body {
         width: 120px;
         height: auto;
         margin: 0 auto 10px auto;
+    }
+    .productos {
+        font-size: 1.4rem; /* tamaño más pequeño en móviles */
     }
 }
 
@@ -775,9 +778,10 @@ section h3 {
 }
 
 .productos {
-    font-size: 100px;
     color: #809250;
     text-align: center;
+    font-size: 2rem;       /* tamaño grande en escritorio */   /* centrado siempre */
+    margin-bottom: 20px; 
 }
 
 .btnproducto {
