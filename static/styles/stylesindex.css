@@ -789,6 +789,7 @@ section h3 {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease 0s;
+    margin-bottom: 12px;
 }
 
 
