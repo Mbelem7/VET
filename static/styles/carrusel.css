@@ -160,7 +160,7 @@
 .carrusel{
     display: flex;
     justify-content: flex-start;
-    padding-left: 50px; 
+    /* padding-left: 50px;  */
 }
 
 .promo-text {
