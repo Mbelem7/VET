@@ -39,8 +39,10 @@ def index():
    return render_template ('index.html')
 
 #LOGIN
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST', 'HEAD'])
 def login():
+    if request.method == 'HEAD':
+        return '', 200
     if request.method == 'POST':
         username = request.form['user']
         password = request.form['pswd']
