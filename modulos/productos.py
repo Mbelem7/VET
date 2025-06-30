@@ -1,8 +1,6 @@
 from modulos.coneccion import *
 import pyodbc
 
-con = ConnectionManager.get_connection()
-
 def insertarproducto(nombreproducto, imagenurl, descripcion, precio, precio_unitario, unidades, peso_por_unidad, stock_peso, tipo_venta, categoria):
     con = ConnectionManager.get_connection()
     cursor = con.cursor()

@@ -50,11 +50,8 @@ def login():
         if not username or not password:
             return render_template('login.html', error='Por favor, ingrese usuario y contraseña.')
 
-        # Setea las credenciales en el ConnectionManager
         from modulos.coneccion import ConnectionManager
-        ConnectionManager.set_credentials(username, password)
-
-        # Intenta obtener la conexión con esas credenciales
+        # Ya no se setean credenciales, solo se usa la conexión global
         con = ConnectionManager.get_connection()
         if not con:
             error_msg = ConnectionManager.get_last_error()

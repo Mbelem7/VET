@@ -1,7 +1,6 @@
 from modulos.coneccion import *
 import pyodbc
 
-con = ConnectionManager.get_connection()
 
 def insertarconsulta(fecha_consulta, descripcion_consulta, diagnostico, tratamiento, precio_consulta, mascota_id):
     con = ConnectionManager.get_connection()

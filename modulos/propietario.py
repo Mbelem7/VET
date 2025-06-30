@@ -1,8 +1,6 @@
 from modulos.coneccion import *
 import pyodbc
 
-con = ConnectionManager.get_connection()
-
 def insertarpropietario(persona_id, tipocliente_id, estado):
     con = ConnectionManager.get_connection()
     cursor = con.cursor()

@@ -1,8 +1,6 @@
 from modulos.coneccion import *
 import pyodbc
 
-con = ConnectionManager.get_connection()
-
 def insertarpersona(nombre, apellido, cedula, telefono, correo, direccion):
     try:
         con = ConnectionManager.get_connection()

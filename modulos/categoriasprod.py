@@ -1,8 +1,6 @@
 from modulos.coneccion import *
 import pyodbc
 
-con = ConnectionManager.get_connection()
-
 def mostrarcategoria():
     con = ConnectionManager.get_connection()
     cursor = con.cursor()

@@ -1,8 +1,6 @@
 from modulos.coneccion import *
 import pyodbc
 
-con = ConnectionManager.get_connection()
-
 def insertarserviciocatalogo(nombre_servicio, imagen_url, precio, descripcion):
     con = ConnectionManager.get_connection()
     cursor = con.cursor()
