@@ -161,6 +161,7 @@
     display: flex;
     justify-content: flex-start;
     /* padding-left: 50px;  */
+    margin-bottom: 40px;
 }
 
 .promo-text {

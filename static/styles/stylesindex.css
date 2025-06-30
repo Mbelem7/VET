@@ -253,6 +253,7 @@ body {
     align-items: center;
     padding: 20px;
     background-color: #809250;
+    margin-bottom: 40px;
 }
 
 .promo-box {
@@ -318,11 +319,11 @@ body {
 .fotoperro {
     margin: 0px auto 10px auto;
     display: block;
-    width: 350px;
-    height: 460px;
+    width: 310px;
+    height: 350px;
     position: absolute;
-    right: 100px;
-    top: 100px;
+    right: 150px;
+    top: 280px;
 }
 
 @media (max-width: 900px) {
