@@ -803,6 +803,7 @@ def compra():
             imagen_url = None
 
         print(nombre, imagen_url, descripcion, precio, precio_unitario, stock_unidades, peso_por_unidad, stock_peso, tipo_venta, categoria)
+        proveedor_id = request.form.get("proveedor_id")  # <-- Obtener proveedor_id del formulario
         insertarproducto(
             nombre,
             imagen_url,
@@ -813,7 +814,8 @@ def compra():
             peso_por_unidad,
             stock_peso,
             tipo_venta,
-            categoria
+            categoria,
+            proveedor_id  # <-- Pasar proveedor_id
         )
         return redirect('/productos')
 

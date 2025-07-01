@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById('proveedor_search');
     const sugerenciasDiv = document.getElementById('proveedor_sugerencias');
@@ -7,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const tdNombre = document.getElementById('td-nombre');
     const tdApellido = document.getElementById('td-apellido');
     const tdEmpresa = document.getElementById('td-empresa');
+
+    // Agregar referencia al botón eliminar
+    const btnEliminarProveedor = document.getElementById('eliminar-proveedor');
 
     let timeout = null;
 
@@ -61,4 +63,17 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }, 200);
     });
+
+    // Evento para el botón eliminar proveedor
+    if (btnEliminarProveedor) {
+        btnEliminarProveedor.addEventListener('click', function () {
+            proveedorIdInput.value = '';
+            tablaProveedor.style.display = 'none';
+            tdNombre.textContent = '';
+            tdApellido.textContent = '';
+            tdEmpresa.textContent = '';
+            input.value = '';
+            input.focus();
+        });
+    }
 });
