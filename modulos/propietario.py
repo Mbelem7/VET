@@ -35,3 +35,14 @@ def buscarpropietario_por_correo(correo):
     prop = cursor.fetchone()
     cursor.close()
     return prop
+
+def actualizar_estado_propietario(id_propietario, nuevo_estado):
+    con = ConnectionManager.get_connection()
+    cursor = con.cursor()
+    cursor.execute("""
+        UPDATE propietario
+        SET estado = ?
+        WHERE id_propietario = ?
+    """, (nuevo_estado, id_propietario))
+    con.commit()
+    cursor.close()

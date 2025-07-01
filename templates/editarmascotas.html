@@ -47,6 +47,12 @@
                             Correo: {{ mascota[8] }}<br>
                             Dirección: {{ mascota[9] }}
                         </span>
+                        <input type="hidden" name="propietario_id" value="{{ mascota[10] }}">
+                        <label>Estado propietario:</label>
+                        <select name="estado_propietario">
+                            <option value="activo" {% if mascota[11]=='activo' %}selected{% endif %}>Activo</option>
+                            <option value="inactivo" {% if mascota[11]=='inactivo' %}selected{% endif %}>Inactivo</option>
+                        </select>
                     </div>
                 </div>
                 <br>

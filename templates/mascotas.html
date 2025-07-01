@@ -52,6 +52,7 @@
                 </thead>
                 <tbody>
                   {% for i in Mascot %}
+                  {% if i[10] == 'activo' %}
                   <tr>
                     <td>{{ i[0] }}</td>
                     <td>{{ i[1] }}</td>
@@ -68,6 +69,7 @@
                       <a href="{{ url_for('editar_mascota', idmascota=i[11]) }}" class="btnproducto">Editar</a>
                     </td>
                   </tr>
+                  {% endif %}
                   {% endfor %}
                 </tbody>
               </table>

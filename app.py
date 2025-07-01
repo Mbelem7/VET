@@ -281,7 +281,11 @@ def editar_mascota(idmascota):
         edad = request.form.get("edad")
         peso = request.form.get("peso")
         propietario_id = int(request.form.get("propietario_id"))
+        estado_propietario = request.form.get("estado_propietario")
         actualizar_mascota(idmascota, edad, peso, propietario_id)
+        if estado_propietario:
+            from modulos.propietario import actualizar_estado_propietario
+            actualizar_estado_propietario(propietario_id, estado_propietario)
         return redirect('/mascotas')
     else:
         mascota = mostrarmacota(idmascota)[0]

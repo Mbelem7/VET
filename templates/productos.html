@@ -36,11 +36,17 @@
         {% if p[9] == 'unidad' %}
         <p><strong>Precio:</strong> C$ {{ p[4] }}</p>
         <p><strong>Unidades:</strong> {{ p[6] }}</p>
+        {% if p[6] | int <= 20 %}
+        <p style="color: red; font-weight: bold;">¡Inventario de seguridad! Se recomienda reponer stock.</p>
+        {% endif %}
         {% else %}
         <p><strong>Precio por unidad:</strong> C$ {{ p[4] }}</p>
         <p><strong>Precio kg:</strong> C$ {{ p[5] }}</p>
         <p><strong>Unidades:</strong> {{ p[6] }}</p>
         <p><strong>Peso disponible:</strong> {{ p[8] }} kg</p>
+        {% if p[6] | float <= 2 %}
+        <p style="color: red; font-weight: bold;">¡Inventario de seguridad! Se recomienda reponer stock.</p>
+        {% endif %}
         {% endif %}
         
         <a href="{{ url_for('editar_producto', idproducto=p[0]) }}">
