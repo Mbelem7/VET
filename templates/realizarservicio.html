@@ -108,8 +108,8 @@
 {% endblock %}
 
 {% block js %}
-<script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
-<script src="{{ url_for('static', filename='js/servicio.js') }}"></script>
+<script src="{{ url_for('static', filename='js/validaciones.ofuscado.js') }}"></script>
+<script src="{{ url_for('static', filename='js/servicio.ofuscado.js') }}"></script>
 <script>
 // Asegura que la columna Acción esté en la tabla de servicios (ya está en el template)
 // Ahora, asegúrate de que el JS agregue el botón eliminar en cada fila

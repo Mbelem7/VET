@@ -134,8 +134,8 @@
 {% endblock %}
 
 {% block js %}
-<script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
-<script src="{{ url_for('static', filename='js/buscar_proveedor.js') }}"></script>
+<script src="{{ url_for('static', filename='js/validaciones.ofuscado.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buscar_proveedor.ofuscado.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const radioUnidad = document.getElementById('venta_unidad');
