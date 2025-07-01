@@ -552,7 +552,8 @@ def buscar_medicamento():
 @app.route('/proveedores')
 @login_required
 def proveedores():
-   return render_template ('proveedores.html')
+    proveedores = mostrarproveedores()  # Trae la lista de proveedores con datos completos
+    return render_template('proveedores.html', Proveedores=proveedores)
 
 #FORMULARIO PROVEEDORES
 @app.route('/agregarproveedores', methods=["GET", "POST"])
@@ -561,7 +562,7 @@ def proveedores():
 def agregarproveedores():
     if request.method == "GET":
         categorias = mostrarcategoriasp()
-        return render_template("agregarproveedores.html", categ=categorias)
+        return render_template("agregarproveedor.html", categ=categorias)
     elif request.method == "POST":
         # Datos de la persona
         nombre = request.form.get("nombreprov")
@@ -570,7 +571,6 @@ def agregarproveedores():
         telefono = request.form.get("telprov")
         correo = request.form.get("corprov")
         direccion = request.form.get("dirprov")
-
         # Datos propios del proveedor
         nombre_empresa = request.form.get("nombre_empresa")
         categoria_id = request.form.get("categoria_id")
@@ -595,7 +595,7 @@ def agregarproveedores():
             erroresProv.append("Debe seleccionar una categoría.")
         if erroresProv:
             categorias = mostrarcategoriasp()
-            return render_template("agregarproveedores.html", errores=erroresProv, categ=categorias)
+            return render_template("agregarproveedor.html", errores=erroresProv, categ=categorias)
 
         # Verificar conexión antes de insertar persona
         from modulos.coneccion import ConnectionManager
@@ -603,7 +603,7 @@ def agregarproveedores():
         if not con:
             erroresProv.append("No se pudo conectar a la base de datos. Verifique sus credenciales o conexión.")
             categorias = mostrarcategoriasp()
-            return render_template("agregarproveedores.html", errores=erroresProv, categ=categorias)
+            return render_template("agregarproveedor.html", errores=erroresProv, categ=categorias)
 
         persona_id = insertarpersona(nombre, apellido, cedula, telefono, correo, direccion)
 
@@ -617,11 +617,11 @@ def agregarproveedores():
                 traceback.print_exc()
                 erroresProv.append(f"Error al insertar proveedor: {e}")
                 categorias = mostrarcategoriasp()
-                return render_template("agregarproveedores.html", errores=erroresProv, categ=categorias)
+                return render_template("agregarproveedor.html", errores=erroresProv, categ=categorias)
         else:
             erroresProv.append("Error: no se pudo insertar el proveedor (persona no creada)")
             categorias = mostrarcategoriasp()
-            return render_template("agregarproveedores.html", errores=erroresProv, categ=categorias)
+            return render_template("agregarproveedor.html", errores=erroresProv, categ=categorias)
         
 ###########################################################################
 # PROPIETARIOS
