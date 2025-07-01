@@ -312,7 +312,7 @@ def agregarmascotas():
             erroresM.append("El nombre de la mascota es obligatorio y no puede tener más de 30 caracteres.")
         if not Edad or not Edad.isdigit() or int(Edad) < 0:
             erroresM.append("La edad de la mascota es obligatoria y debe ser un número positivo.")
-        if not Peso or not Peso.replace('.', '', 1).isdigit() or float(Peso) <= 0:
+        if not Peso:
             erroresM.append("El peso de la mascota es obligatorio y debe ser un número positivo.")
         if Sexo not in ['M', 'F']:
             erroresM.append("El sexo de la mascota debe ser 'M' o 'F'.")
