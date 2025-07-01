@@ -936,6 +936,7 @@ body .ventas {
 
 .servicioss {
     display: flex;
+    align-items: column;
     align-items: center;
     border-radius: 10px;
     margin-left: 10px;
@@ -946,8 +947,9 @@ body .ventas {
     transition: .3s all ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     padding: 20px;
-    gap: 30px;
     flex-wrap: wrap;
+    margin-bottom: 20px;
+    overflow: visible;
 }
 
 .servicioss:hover {
@@ -955,11 +957,13 @@ body .ventas {
 }
 
 .servicio-img img {
+    max-width: 100%;
     width: 180px;
-    height: 180px;
+    height: auto;
     object-fit: contain;
     border-radius: 10px;
     display: block;
+    margin: 0 auto;
 }
 
 .servicio-info {
@@ -967,17 +971,23 @@ body .ventas {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 200px;
     padding: 10px;
+    text-align: center;
+    width: 100%;
+    overflow-wrap: break-word;
 }
 
 .servicio-info h3 {
-    margin: 0 0 10px 0;
+    margin: 5px 0;
     font-weight: bold;
+    line-height: 1.4;
+    font-size: 1rem;
 }
 
 .servicio-info p {
     margin: 5px 0;
+    line-height: 1.4;
+    font-size: 1rem;
 }
 
 /* FIN SERVICIOS */
