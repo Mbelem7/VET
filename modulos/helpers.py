@@ -54,7 +54,7 @@ def veterinario_required(f):
     def decorated_function(*args, **kwargs):
         print(session.get("user_role"))
         roles = session.get("user_role") or []
-        if "Veterinario" not in roles and "Adminvet" not in roles and "Genvet_Admin" not in roles:
+        if "db_datareader" not in roles and "Adminvet" not in roles and "Genvet_Admin" not in roles and "db_datawriter" not in roles:
             return redirect("/")  # Redirigir si no tiene permiso
 
         return f(*args, **kwargs)
@@ -74,7 +74,7 @@ def vetRec_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         roles = session.get("user_role") or []
-        if ("Veterinario" not in roles and "Recepcionista" not in roles and "Adminvet" not in roles and "Genvet_Admin" not in roles):
+        if ("db_datawriter" not in roles and "db_datareader" not in roles and "Adminvet" not in roles and "Genvet_Admin" not in roles):
             return redirect("/")  # Redirigir si no tiene permiso
 
         return f(*args, **kwargs)
@@ -94,7 +94,7 @@ def recepcionista_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         roles = session.get("user_role") or []
-        if "Recepcionista" not in roles:
+        if "db_datareader" not in roles:
             # Si el usuario no tiene el rol de ADMIN, redirigir a la página de inicio
             return redirect("/")  # Redirigir si no tiene permiso
 
