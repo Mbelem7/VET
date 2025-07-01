@@ -37,24 +37,29 @@
                             <input type="number" step="0.01" class="form-control" id="preciop" name="preciop" required value="{{ producto[4] }}">
                         </div>
                         <div class="info">
-                            <label for="unidadesp">Unidades:</label>
-                            <input type="number" class="form-control" id="unidadesp" name="unidadesp" required value="{{ producto[5] }}">
+                            <label for="unidadesp">Unidades actuales:</label>
+                            <input type="number" class="form-control" id="unidadesp" name="unidadesp" value="{{ producto[6] }}" readonly>
+                        </div>
+                        <div class="info">
+                            <label for="unidades_agregar">Unidades a agregar:</label>
+                            <input type="number" class="form-control" id="unidades_agregar" name="unidades_agregar" value="0" min="0">
                         </div>
                         <div class="info">
                             <label for="proveedor_id">Proveedor:</label>
                             <select id="proveedor_id" name="proveedor_id" class="form-control" required>
                                 <option value="">Seleccione un proveedor</option>
                                 {% for prov in proveedores %}
-                                <option value="{{ prov[0] }}" {% if producto[6] == prov[0] %}selected{% endif %}>
+                                <option value="{{ prov[0] }}" {% if producto[10] == prov[0] %}selected{% endif %}>
                                     {{ prov[2] }} {{ prov[3] }} ({{ prov[8] }})
                                 </option>
                                 {% endfor %}
                             </select>
                         </div>
+                        
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                    <a href="{{ url_for('productos') }}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary btnproducto">Guardar cambios</button>
+                    <a href="{{ url_for('productos') }}" class="btn btn-secondary btnproducto">Cancelar</a>
                 </section>
             </div>
         </div>
