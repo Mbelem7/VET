@@ -83,7 +83,34 @@
                             <small style="color:#1a4d1a;">Este valor se calcula automáticamente.</small>
                         </div>
 
-                        <br>
+                        <div class="form-group">
+                            <label for="proveedor_search">Proveedor:</label>
+                            <input type="text" class="form-control" id="proveedor_search" name="proveedor_search"
+                                placeholder="Buscar proveedor por nombre, apellido o empresa" autocomplete="off">
+                            <input type="hidden" id="proveedor_id" name="proveedor_id">
+                            <div id="proveedor_sugerencias" class="sugerencias-lista"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Proveedor seleccionado:</label>
+                            <table class="tabla" id="tabla-proveedor-seleccionado" style="width:100%; display:none;">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Empresa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td id="td-nombre"></td>
+                                        <td id="td-apellido"></td>
+                                        <td id="td-empresa"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                         <div class="form-group">
                             <label for="categoria">Categoria:</label>
                             <select class="form-control" name="categoria" id="categoria" required>
@@ -108,6 +135,7 @@
 
 {% block js %}
 <script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buscar_proveedor.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const radioUnidad = document.getElementById('venta_unidad');

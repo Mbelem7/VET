@@ -829,6 +829,7 @@ def editar_producto(idproducto):
         producto = obtenerunproducto(idproducto)
         tipo_venta = producto[9]
         estado = request.form.get("estado", "activo")
+        proveedor_id = request.form.get("proveedor_id")
         if tipo_venta == "unidad":
             precio = request.form.get("preciop")
             unidades_actuales = producto[6] or 0
@@ -855,12 +856,14 @@ def editar_producto(idproducto):
             peso_por_unidad,
             stock_peso,
             tipo_venta,
-            estado
+            estado,
+            proveedor_id
         )
         return redirect('/productos')
     else:
-        producto = obtenerunproducto(idproducto)  # Usa la función que trae un solo producto
-        return render_template("editaproducto.html", producto=producto)
+        producto = obtenerunproducto(idproducto)
+        proveedores = mostrarproveedores()
+        return render_template("editaproducto.html", producto=producto, proveedores=proveedores)
 
 #BUSCAR PRODUCTO
 @app.route('/buscar_producto')
@@ -1243,6 +1246,32 @@ def inject_mensaje_consultas_whatsapp():
 def historial_ventas():
     historial = mostrar_ventas()
     return render_template('historialventas.html', historial=historial)
+
+@app.route('/buscar_proveedor')
+@login_required
+def buscar_proveedor():
+    q = request.args.get('q', '').strip().lower()
+    proveedores = []
+    if q:
+        con = ConnectionManager.get_connection()
+        cursor = con.cursor()
+        cursor.execute('''
+            SELECT prov.ID_PROVEEDOR, per.NOMBRE, per.APELLIDO, prov.NOMBRE_EMPRESA
+            FROM PROVEEDOR prov
+            INNER JOIN PERSONA per ON per.ID_PERSONA = prov.PERSONA_ID
+            WHERE LOWER(per.NOMBRE) LIKE ? OR LOWER(per.APELLIDO) LIKE ? OR LOWER(prov.NOMBRE_EMPRESA) LIKE ?
+        ''', (f'%{q}%', f'%{q}%', f'%{q}%'))
+        proveedores = [
+            {
+                'id': row[0],
+                'nombre': row[1],
+                'apellido': row[2],
+                'empresa': row[3]
+            }
+            for row in cursor.fetchall()
+        ]
+        cursor.close()
+    return jsonify(proveedores)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)

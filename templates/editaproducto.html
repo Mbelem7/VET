@@ -33,55 +33,24 @@
                             {% endif %}
                         </div>
                         <div class="info">
-                            <label>Tipo de venta:</label>
-                            <span>{{ producto[9]|capitalize }}</span>
-                        </div>
-                        <div class="info">
-                            <label for="estado">Estado:</label>
-                            <select id="estado" name="estado" class="form-control">
-                                <option value="activo" {% if producto[11]=='activo' %}selected{% endif %}>Activo</option>
-                                <option value="inactivo" {% if producto[11]=='inactivo' %}selected{% endif %}>Inactivo</option>
-                            </select>
-                        </div>
-                        {% if producto[9] == 'unidad' %}
-                        <div class="info">
-                            <label for="preciop">Precio por unidad:</label>
+                            <label for="preciop">Precio:</label>
                             <input type="number" step="0.01" class="form-control" id="preciop" name="preciop" required value="{{ producto[4] }}">
                         </div>
                         <div class="info">
-                            <label>Stock actual:</label>
-                            <span id="stock_actual">{{ producto[6] }}</span>
+                            <label for="unidadesp">Unidades:</label>
+                            <input type="number" class="form-control" id="unidadesp" name="unidadesp" required value="{{ producto[5] }}">
                         </div>
                         <div class="info">
-                            <label for="unidades_agregar">Unidades a agregar:</label>
-                            <input type="number" class="form-control" id="unidades_agregar" name="unidades_agregar" value="0" min="0">
+                            <label for="proveedor_id">Proveedor:</label>
+                            <select id="proveedor_id" name="proveedor_id" class="form-control" required>
+                                <option value="">Seleccione un proveedor</option>
+                                {% for prov in proveedores %}
+                                <option value="{{ prov[0] }}" {% if producto[6] == prov[0] %}selected{% endif %}>
+                                    {{ prov[2] }} {{ prov[3] }} ({{ prov[8] }})
+                                </option>
+                                {% endfor %}
+                            </select>
                         </div>
-                        {% elif producto[9] == 'peso' %}
-                        <div class="info">
-                            <label for="precio_unitario">Precio por unidad:</label>
-                            <input type="number" step="0.01" class="form-control" id="precio_unitario" name="precio_unitario" required value="{{ producto[5] }}">
-                        </div>
-                        <div class="info">
-                            <label for="precio_kg">Precio por kg:</label>
-                            <input type="number" step="0.01" class="form-control" id="precio_kg" name="precio_kg" required value="{{ producto[4] }}">
-                        </div>
-                        <div class="info">
-                            <label>Peso por unidad (kg):</label>
-                            <span id="peso_por_unidad">{{ producto[7] }}</span>
-                        </div>
-                        <div class="info">
-                            <label>Stock actual (unidades):</label>
-                            <span id="stock_actual">{{ producto[6] }}</span>
-                        </div>
-                        <div class="info">
-                            <label for="unidades_agregar">Unidades a agregar:</label>
-                            <input type="number" class="form-control" id="unidades_agregar" name="unidades_agregar" value="0" min="0">
-                        </div>
-                        <div class="info">
-                            <label>Peso disponible (kg):</label>
-                            <span id="stock_peso">{{ producto[8] }}</span>
-                        </div>
-                        {% endif %}
                     </div>
                     <br>
                     <button type="submit" class="btn btn-primary">Guardar cambios</button>
@@ -94,23 +63,4 @@
 {% endblock %}
 
 {% block js %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const tipoVenta = '{{ producto[9] }}';
-    if (tipoVenta === 'peso') {
-        const stockPesoActual = parseFloat(document.getElementById('stock_peso').textContent) || 0;
-        const unidadesInput = document.getElementById('unidades_agregar');
-        const pesoSpan = document.getElementById('stock_peso');
-        const pesoPorUnidad = parseFloat(document.getElementById('peso_por_unidad').textContent) || 0;
-        function actualizarPesoDisponible() {
-            const unidadesAgregar = parseInt(unidadesInput.value) || 0;
-            const pesoNuevo = unidadesAgregar * pesoPorUnidad;
-            const pesoDisponible = stockPesoActual + pesoNuevo;
-            pesoSpan.textContent = pesoDisponible.toFixed(2);
-        }
-        unidadesInput.addEventListener('input', actualizarPesoDisponible);
-        actualizarPesoDisponible();
-    }
-});
-</script>
 {% endblock %}
