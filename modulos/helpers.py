@@ -32,7 +32,7 @@ def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         roles = session.get("user_role") or []
-        if "Adminvet" not in roles:
+        if "Adminvet" not in roles and "Genvet_Admin" not in roles:
             return redirect("/")  # Redirigir si no tiene permiso
 
         return f(*args, **kwargs)
@@ -54,7 +54,7 @@ def veterinario_required(f):
     def decorated_function(*args, **kwargs):
         print(session.get("user_role"))
         roles = session.get("user_role") or []
-        if "Veterinario" not in roles and "Adminvet" not in roles:
+        if "Veterinario" not in roles and "Adminvet" not in roles and "Genvet_Admin" not in roles:
             return redirect("/")  # Redirigir si no tiene permiso
 
         return f(*args, **kwargs)
@@ -74,7 +74,7 @@ def vetRec_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         roles = session.get("user_role") or []
-        if ("Veterinario" not in roles and "Recepcionista" not in roles and "Adminvet" not in roles):
+        if ("Veterinario" not in roles and "Recepcionista" not in roles and "Adminvet" not in roles and "Genvet_Admin" not in roles):
             return redirect("/")  # Redirigir si no tiene permiso
 
         return f(*args, **kwargs)
