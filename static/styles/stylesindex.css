@@ -936,12 +936,11 @@ body .ventas {
 
 .servicioss {
     display: flex;
-    align-items: column;
     align-items: center;
+    flex-direction: column;
     border-radius: 10px;
     margin-left: 10px;
-    height: 260px;
-    width: 500px;
+    width: 100%;
     background-color: #FEFAE0;
     color: #809250;
     transition: .3s all ease;
@@ -950,6 +949,7 @@ body .ventas {
     flex-wrap: wrap;
     margin-bottom: 20px;
     overflow: visible;
+    box-sizing: border-box;
 }
 
 .servicioss:hover {
