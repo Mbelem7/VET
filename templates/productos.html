@@ -28,6 +28,7 @@
 
     <div class="contenedor-productos">
       {% for p in productos %}
+      {% if p[11]|lower == 'activo' %}
       <div class="producto">
         <img src="{{ url_for('static', filename=p[2].split('static/')[1]) }}" alt="{{ p[1] }}">
         <h3>{{ p[1] }}</h3>
@@ -53,6 +54,7 @@
           <button class="btnproducto">Editar</button>
         </a>
       </div>
+      {% endif %}
       {% endfor %}
     </div>
 

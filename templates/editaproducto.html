@@ -10,7 +10,9 @@
 
 {% block body %}
 <div class="bodycompra">
+    
     <form method="post">
+        <br>
         <div class="form-container">
             <div class="form-box">
                 <br>
@@ -81,6 +83,13 @@
                                     {{ prov[2] }} {{ prov[3] }} ({{ prov[8] }})
                                 </option>
                                 {% endfor %}
+                            </select>
+                        </div>
+                        <div class="info">
+                            <label for="estado">Estado:</label>
+                            <select id="estado" name="estado" class="form-control" required>
+                                <option value="activo" {% if producto[11]=='activo' %}selected{% endif %}>Activo</option>
+                                <option value="inactivo" {% if producto[11]=='inactivo' %}selected{% endif %}>Inactivo</option>
                             </select>
                         </div>
                         
