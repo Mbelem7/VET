@@ -14,17 +14,18 @@
   <br>
 
   <h2 class="menu">Consultas</h2>
+  <img class="fotomascotas" src="../static/assets/img/mas gatos.jpg" alt="">
 
   <div class="form-container">
     <div class="form-box">
       <a href="/agregarconsultas"> <button class="btnproducto">Agregar Consultas</button></a>
       <form action="{{ url_for('reporte_consultas_pdf') }}" method="get" style="display:inline;">
-            <button type="submit" class="btnproducto">Descargar PDF</button>
-        </form>
+        <button type="submit" class="btnproducto">Descargar PDF</button>
+      </form>
 
-        <a href="https://wa.me/?text={{ mensaje__whatsapp }}" target="_blank">
-            <button class="btnproducto">Enviar por WhatsApp</button>
-        </a>
+      <a href="https://wa.me/?text={{ mensaje__whatsapp }}" target="_blank">
+        <button class="btnproducto">Enviar por WhatsApp</button>
+      </a>
 
       <div class="contenedor-tabla">
         <div class="tabla-negocios">

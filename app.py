@@ -14,6 +14,7 @@ from modulos.ventas import *
 from modulos.servicios import *
 from modulos.consultas import *
 from modulos.coneccion import *
+from modulos.proveedor import *
 from flask_session import Session
 import io
 import pandas as pd
@@ -548,13 +549,82 @@ def buscar_medicamento():
 
 ###########################################################################
 #PROVEEDORES
-# @app.route('/proveedores')
-# @login_required
-# def proveedores():
-#    return render_template ('proveedores.html')
+@app.route('/proveedores')
+@login_required
+def proveedores():
+   return render_template ('proveedores.html')
 
-############################################################################
-#PROPIETARIOS
+#FORMULARIO PROVEEDORES
+@app.route('/agregarproveedores', methods=["GET", "POST"])
+@login_required
+@admin_required
+def agregarproveedores():
+    if request.method == "GET":
+        categorias = mostrarcategoriasp()
+        return render_template("agregarproveedores.html", categ=categorias)
+    elif request.method == "POST":
+        # Datos de la persona
+        nombre = request.form.get("nombreprov")
+        apellido = request.form.get("apellidoprov")
+        cedula = request.form.get("cedprov")
+        telefono = request.form.get("telprov")
+        correo = request.form.get("corprov")
+        direccion = request.form.get("dirprov")
+
+        # Datos propios del proveedor
+        nombre_empresa = request.form.get("nombre_empresa")
+        categoria_id = request.form.get("categoria_id")
+
+        # VALIDACIONES DE LONGITUD Y CAMPOS
+        erroresProv = []
+        if not nombre or len(nombre) > 50:
+            erroresProv.append("El nombre es obligatorio y no puede tener más de 50 caracteres.")
+        if not apellido or len(apellido) > 50:
+            erroresProv.append("El apellido es obligatorio y no puede tener más de 50 caracteres.")
+        if not cedula or len(cedula) > 16:
+            erroresProv.append("La cédula es obligatoria y no puede tener más de 16 caracteres.")
+        if not telefono or len(telefono) > 8:
+            erroresProv.append("El teléfono es obligatorio y no puede tener más de 8 caracteres.")
+        if not correo or len(correo) > 100:
+            erroresProv.append("El correo es obligatorio y no puede tener más de 100 caracteres.")
+        if not direccion or len(direccion) > 700:
+            erroresProv.append("La dirección es obligatoria y no puede tener más de 700 caracteres.")
+        if not nombre_empresa or len(nombre_empresa) > 100:
+            erroresProv.append("El nombre de la empresa es obligatorio y no puede tener más de 100 caracteres.")
+        if not categoria_id:
+            erroresProv.append("Debe seleccionar una categoría.")
+        if erroresProv:
+            categorias = mostrarcategoriasp()
+            return render_template("agregarproveedores.html", errores=erroresProv, categ=categorias)
+
+        # Verificar conexión antes de insertar persona
+        from modulos.coneccion import ConnectionManager
+        con = ConnectionManager.get_connection()
+        if not con:
+            erroresProv.append("No se pudo conectar a la base de datos. Verifique sus credenciales o conexión.")
+            categorias = mostrarcategoriasp()
+            return render_template("agregarproveedores.html", errores=erroresProv, categ=categorias)
+
+        persona_id = insertarpersona(nombre, apellido, cedula, telefono, correo, direccion)
+
+        if persona_id:
+            try:
+                insertarproveedor(persona_id, nombre_empresa, categoria_id)
+                return redirect('/proveedores')
+            except Exception as e:
+                print("Error en insertarproveedor:", e)
+                import traceback
+                traceback.print_exc()
+                erroresProv.append(f"Error al insertar proveedor: {e}")
+                categorias = mostrarcategoriasp()
+                return render_template("agregarproveedores.html", errores=erroresProv, categ=categorias)
+        else:
+            erroresProv.append("Error: no se pudo insertar el proveedor (persona no creada)")
+            categorias = mostrarcategoriasp()
+            return render_template("agregarproveedores.html", errores=erroresProv, categ=categorias)
+        
+###########################################################################
+# PROPIETARIOS
 @app.route('/propietarios')
 @login_required
 @vetRec_required

@@ -645,24 +645,7 @@ a {
     /* Centra el form-box */
     box-sizing: border-box;
     overflow-x: auto;
-    position: relative;
-    z-index: 2; 
 }
-
-.form-box::after{
-     content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 45%; /* Ajusta el ancho según lo que desees */
-  height: 100%;
-  background: url('../static/assets/img/fondo1.jpg') no-repeat right center;
-  background-size: cover;
-  z-index: 1;
-  border-radius: 0 10px 10px 0; /* Opcional: bordes redondeados solo a la derecha */
-  pointer-events: none; /* Para que no bloquee los campos del formulario */
-}
-
 
 .image-box {
     flex: 1;
