@@ -54,7 +54,7 @@ def veterinario_required(f):
     def decorated_function(*args, **kwargs):
         print(session.get("user_role"))
         roles = session.get("user_role") or []
-        if "db_datareader" not in roles and "Adminvet" not in roles and "Genvet_Admin" not in roles and "db_datawriter" not in roles:
+        if "db_datareader" not in roles and "Adminvet" not in roles and "Genvet_Admin" not in roles:
             return redirect("/")  # Redirigir si no tiene permiso
 
         return f(*args, **kwargs)
