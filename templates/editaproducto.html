@@ -47,16 +47,20 @@
                         </div>
                         {% else %}
                         <div class="info">
-                            <label for="unidadesp">Unidades actuales:</label>
-                            <input type="number" class="form-control" id="unidadesp" name="unidadesp" value="{{ producto[6] }}" readonly>
+                            <label>Unidades actuales:</label>
+                            <span>{{ producto[6] }}</span>
                         </div>
                         <div class="info">
                             <label for="unidades_agregar">Unidades a agregar:</label>
                             <input type="number" class="form-control" id="unidades_agregar" name="unidades_agregar" value="0" min="0">
                         </div>
                         <div class="info">
-                            <label for="peso_por_unidad">Peso por unidad (kg):</label>
-                            <input type="number" class="form-control" id="peso_por_unidad" name="peso_por_unidad" value="{{ producto[7] }}" step="0.01" min="0" readonly>
+                            <label>Peso por unidad (kg):</label>
+                            <span id="peso_por_unidad_span">{{ producto[7] }}</span>
+                        </div>
+                        <div class="info">
+                            <label for="precio_unitario">Precio por kilo:</label>
+                            <input type="number" class="form-control" id="precio_unitario" name="precio_unitario" value="{{ producto[5] }}" step="0.01" min="0" required>
                         </div>
                         <div class="info">
                             <label for="stock_peso">Stock total en peso (kg):</label>
@@ -87,4 +91,20 @@
 {% endblock %}
 
 {% block js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const unidadesAgregar = document.getElementById('unidades_agregar');
+        const stockPeso = document.getElementById('stock_peso');
+        const pesoPorUnidad = parseFloat(document.getElementById('peso_por_unidad_span')?.textContent || 0);
+        const stockPesoInicial = parseFloat(stockPeso?.value || 0);
+        const unidadesActuales = parseInt(document.getElementById('unidadesp')?.value || document.querySelector('span[for="unidadesp"]')?.textContent || 0);
+        if (unidadesAgregar && stockPeso && pesoPorUnidad) {
+            unidadesAgregar.addEventListener('input', function () {
+                const agregar = parseInt(unidadesAgregar.value) || 0;
+                const nuevoStock = stockPesoInicial + (agregar * pesoPorUnidad);
+                stockPeso.value = nuevoStock.toFixed(3);
+            });
+        }
+    });
+</script>
 {% endblock %}
