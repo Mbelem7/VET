@@ -35,14 +35,14 @@ def obtenerunproducto(idproducto):
     cursor.close()
     return producto
 
-def actualizar_producto(id_producto, precio, precio_unitario, stock_unidades, peso_por_unidad, stock_peso, tipo_venta, estado):
+def actualizar_producto(id_producto, precio, precio_unitario, stock_unidades, peso_por_unidad, stock_peso, tipo_venta, estado, proveedor_id):
     con = ConnectionManager.get_connection()
     cursor = con.cursor()
     cursor.execute("""
         UPDATE PRODUCTO
-        SET PRECIO_PRODUCTO = ?, PRECIO_UNITARIO = ?, STOCK_UNIDADES = ?, PESO_POR_UNIDAD = ?, STOCK_PESO = ?, TIPO_VENTA = ?, ESTADO = ?
+        SET PRECIO_PRODUCTO = ?, PRECIO_UNITARIO = ?, STOCK_UNIDADES = ?, PESO_POR_UNIDAD = ?, STOCK_PESO = ?, TIPO_VENTA = ?, ESTADO = ?, PROVEEDOR_ID = ?
         WHERE ID_PRODUCTO = ?
-    """, (precio, precio_unitario, stock_unidades, peso_por_unidad, stock_peso, tipo_venta, estado, id_producto))
+    """, (precio, precio_unitario, stock_unidades, peso_por_unidad, stock_peso, tipo_venta, estado, proveedor_id, id_producto))
     con.commit()
     cursor.close()
 
