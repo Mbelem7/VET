@@ -561,7 +561,7 @@ def proveedores():
 @admin_required
 def agregarproveedores():
     if request.method == "GET":
-        categorias = mostrarcategoriasp()
+        categorias = mostrarcategoria()
         return render_template("agregarproveedor.html", categ=categorias)
     elif request.method == "POST":
         # Datos de la persona
