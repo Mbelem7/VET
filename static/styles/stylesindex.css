@@ -480,6 +480,21 @@ body {
     .promo-text h3 {
         font-size: 1.3rem;
     }
+
+    .servicioss {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .servicio-img img {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .servicio-info {
+    padding: 10px 0;
+  }
 }
 
 section h2 {
@@ -932,6 +947,7 @@ body .ventas {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     padding: 20px;
     gap: 30px;
+    flex-wrap: wrap;
 }
 
 .servicioss:hover {
@@ -951,6 +967,8 @@ body .ventas {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 200px;
+    padding: 10px;
 }
 
 .servicio-info h3 {
